@@ -1,0 +1,19 @@
+<svg width="800" height="500" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Finance project illustration -->
+  <rect width="800" height="500" fill="#0A0A5F"/>
+  
+  <!-- Dashboard mockup -->
+  <rect x="100" y="80" width="600" height="340" rx="8" fill="#1a1a7a"/>
+  <rect x="100" y="80" width="600" height="50" rx="8" fill="#307FE2"/>
+  
+  <!-- Chart elements -->
+  <rect x="150" y="180" width="80" height="160" fill="#307FE2" opacity="0.8"/>
+  <rect x="260" y="220" width="80" height="120" fill="#307FE2" opacity="0.6"/>
+  <rect x="370" y="200" width="80" height="140" fill="#307FE2" opacity="0.7"/>
+  <rect x="480" y="160" width="80" height="180" fill="#307FE2" opacity="0.9"/>
+  
+  <!-- Decorative grid -->
+  <line x1="150" y1="350" x2="600" y2="350" stroke="#307FE2" stroke-width="1" opacity="0.3"/>
+  <line x1="150" y1="300" x2="600" y2="300" stroke="#307FE2" stroke-width="1" opacity="0.3"/>
+  <line x1="150" y1="250" x2="600" y2="250" stroke="#307FE2" stroke-width="1" opacity="0.3"/>
+</svg>

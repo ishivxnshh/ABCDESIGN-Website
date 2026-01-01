@@ -1,0 +1,19 @@
+<svg width="800" height="500" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- E-commerce SEO project -->
+  <rect width="800" height="500" fill="#fff"/>
+  
+  <!-- Browser mockup -->
+  <rect x="100" y="60" width="600" height="380" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+  <rect x="100" y="60" width="600" height="40" rx="8" fill="#0A0A5F"/>
+  
+  <!-- Search bar -->
+  <rect x="150" y="130" width="500" height="50" rx="25" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+  
+  <!-- Product grid -->
+  <rect x="150" y="220" width="130" height="130" rx="8" fill="#307FE2" opacity="0.2"/>
+  <rect x="300" y="220" width="130" height="130" rx="8" fill="#307FE2" opacity="0.3"/>
+  <rect x="450" y="220" width="130" height="130" rx="8" fill="#307FE2" opacity="0.2"/>
+  
+  <!-- Growth arrow -->
+  <path d="M 650 400 L 720 330 L 690 330 L 690 300 L 720 300 L 720 330" fill="#307FE2" opacity="0.8"/>
+</svg>

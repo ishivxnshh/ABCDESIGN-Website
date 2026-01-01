@@ -1,0 +1,18 @@
+<svg width="800" height="500" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Branding project illustration -->
+  <rect width="800" height="500" fill="#f8fafc"/>
+  
+  <!-- Brand elements -->
+  <circle cx="400" cy="200" r="80" fill="#0A0A5F"/>
+  <text x="400" y="215" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#fff" text-anchor="middle">TS</text>
+  
+  <!-- Color palette -->
+  <rect x="200" y="320" width="80" height="80" rx="8" fill="#0A0A5F"/>
+  <rect x="300" y="320" width="80" height="80" rx="8" fill="#307FE2"/>
+  <rect x="400" y="320" width="80" height="80" rx="8" fill="#1a1a7a"/>
+  <rect x="500" y="320" width="80" height="80" rx="8" fill="#e2f1ff"/>
+  
+  <!-- Typography samples -->
+  <rect x="150" y="100" width="120" height="30" rx="4" fill="#0A0A5F" opacity="0.2"/>
+  <rect x="530" y="100" width="120" height="30" rx="4" fill="#307FE2" opacity="0.2"/>
+</svg>
