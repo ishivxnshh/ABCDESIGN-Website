@@ -30,7 +30,7 @@ export function Navbar() {
                             className={({ isActive }) =>
                                 cn(
                                     "text-sm font-medium transition-colors hover:text-primary",
-                                    isActive ? "text-primary" : "text-slate-600"
+                                    isActive ? "text-primary" : "text-foreground/80"
                                 )
                             }
                         >
@@ -44,7 +44,7 @@ export function Navbar() {
 
                 {/* Mobile Menu Toggle */}
                 <div className="md:hidden">
-                    <button onClick={() => setIsOpen(!isOpen)} className="p-2 text-slate-600">
+                    <button onClick={() => setIsOpen(!isOpen)} className="p-2 text-foreground/80">
                         {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                     </button>
                 </div>
@@ -58,7 +58,7 @@ export function Navbar() {
                             <Link
                                 key={link.path}
                                 to={link.path}
-                                className="text-sm font-medium text-slate-600 hover:text-primary"
+                                className="text-sm font-medium text-foreground/80 hover:text-primary"
                                 onClick={() => setIsOpen(false)}
                             >
                                 {link.name}

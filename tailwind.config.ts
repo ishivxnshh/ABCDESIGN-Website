@@ -48,6 +48,8 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        deep: "hsl(var(--deep-bg))",
+        subheading: "hsl(var(--subheading))",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -70,6 +72,8 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "spin-slow": "spin 60s linear infinite",
+        "spin-slower": "spin 90s linear infinite",
       },
     },
   },
