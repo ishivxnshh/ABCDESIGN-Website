@@ -14,35 +14,40 @@ export default function Services() {
             title: "Digital Marketing", 
             desc: "Comprehensive strategies to reach your target audience and drive conversions.", 
             items: ["Social Media Marketing", "Email Campaigns", "PPC Advertising", "Content Marketing", "Marketing Automation", "Influencer Partnerships"],
-            image: "/service-digital-marketing.svg"
+            image: "/service-digital-marketing.svg",
+            link: "/services/digital-marketing"
         },
         { 
             icon: Search, 
             title: "SEO & Performance", 
             desc: "Optimize your digital presence to dominate search results and improve ROI.", 
             items: ["Technical SEO", "Content Strategy", "Performance Audits", "Link Building", "Local SEO", "Analytics & Reporting"],
-            image: "/service-web-dev.svg"
+            image: "/service-web-dev.svg",
+            link: "/services/seo-performance"
         },
         { 
             icon: PenTool, 
             title: "Branding & Creative", 
             desc: "Build a brand identity that resonates and endures.", 
             items: ["Logo Design", "Brand Guidelines", "Visual Identity", "Marketing Collateral", "Brand Strategy", "Creative Direction"],
-            image: "/hero-graphic.svg"
+            image: "/hero-graphic.svg",
+            link: "/services/branding-creative"
         },
         { 
             icon: Globe, 
             title: "Web Development", 
             desc: "Scalable, secure, and high-performance websites built for enterprise.", 
             items: ["Custom Web Apps", "CMS Implementation", "E-commerce Solutions", "Progressive Web Apps", "API Development", "Cloud Infrastructure"],
-            image: "/service-web-dev.svg"
+            image: "/service-web-dev.svg",
+            link: "/services/web-development"
         },
         { 
             icon: BarChart, 
             title: "Growth Consulting", 
             desc: "Data-backed insights to unlock new revenue streams.", 
             items: ["Market Analysis", "Process Optimization", "Digital Transformation", "CRO Strategy", "Business Intelligence", "KPI Tracking"],
-            image: "/hero-graphic.svg"
+            image: "/hero-graphic.svg",
+            link: "/services/growth-consulting"
         },
     ];
 
@@ -86,7 +91,7 @@ export default function Services() {
                             </CardContent>
                             <CardFooter>
                                 <Button variant="ghost" className="w-full text-primary hover:text-primary hover:bg-slate-50" asChild>
-                                    <Link to="/contact">Learn More <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                                    <Link to={service.link}>Learn More <ArrowRight className="ml-2 h-4 w-4" /></Link>
                                 </Button>
                             </CardFooter>
                         </Card>
