@@ -75,75 +75,75 @@ export default function Work() {
 
     return (
         <div className="bg-white min-h-screen">
-            <div className="relative bg-brand-blue py-24 text-white overflow-hidden">
+            <div className="relative bg-brand-blue py-12 sm:py-16 md:py-20 lg:py-24 text-white overflow-hidden">
                 <div className="absolute inset-0 bg-brand-dark-navy/20" />
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
                 <div className="container mx-auto px-4 relative z-10">
-                    <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">Our Impact</h1>
-                    <p className="text-white/90 text-xl max-w-2xl leading-relaxed">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">Our Impact</h1>
+                    <p className="text-white/90 text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed">
                         See how we help leading enterprises achieve their goals through innovation and execution.
                     </p>
                 </div>
             </div>
 
             {/* Featured Case Studies */}
-            <div className="container mx-auto px-4 py-16">
-                <div className="space-y-16">
+            <div className="container mx-auto px-4 py-8 sm:py-12 md:py-16">
+                <div className="space-y-10 sm:space-y-12 md:space-y-16">
                     {cases.map((project, i) => (
-                        <div key={i} className={`group flex flex-col ${i % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 items-center border-b border-brand-neutral-light pb-20 last:border-0`}>
+                        <div key={i} className={`group flex flex-col ${i % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 sm:gap-10 md:gap-12 items-center border-b border-brand-neutral-light pb-12 sm:pb-16 md:pb-20 last:border-0`}>
                             {/* Project Image */}
-                            <div className="lg:w-1/2">
+                            <div className="w-full lg:w-1/2">
                                 <div className="rounded-2xl overflow-hidden shadow-2xl border-2 border-brand-neutral-light group-hover:border-brand-accent-blue/30 transition-all duration-500">
                                     <img src={project.image} alt={project.title} className="w-full h-auto transition-transform duration-500 group-hover:scale-105" />
                                 </div>
                             </div>
                             
                             {/* Project Details */}
-                            <div className="lg:w-1/2 space-y-6">
-                                <Badge variant="secondary" className="inline-flex px-4 py-2 bg-brand-blue/10 text-brand-blue border border-brand-blue/20 font-semibold">
+                            <div className="w-full lg:w-1/2 space-y-4 sm:space-y-6">
+                                <Badge variant="secondary" className="inline-flex px-3 sm:px-4 py-1.5 sm:py-2 bg-brand-blue/10 text-brand-blue border border-brand-blue/20 font-semibold text-xs sm:text-sm">
                                     {project.category}
                                 </Badge>
                                 <div>
-                                    <h2 className="text-4xl font-bold text-foreground mb-3 group-hover:text-brand-blue transition-colors">{project.client}</h2>
-                                    <h3 className="text-2xl text-brand-blue font-semibold mb-4">{project.title}</h3>
-                                    <p className="text-foreground/80 text-lg leading-relaxed">{project.desc}</p>
+                                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-2 sm:mb-3 group-hover:text-brand-blue transition-colors">{project.client}</h2>
+                                    <h3 className="text-xl sm:text-2xl text-brand-blue font-semibold mb-3 sm:mb-4">{project.title}</h3>
+                                    <p className="text-foreground/80 text-base sm:text-lg leading-relaxed">{project.desc}</p>
                                 </div>
                                 
                                 {/* Metrics */}
-                                <div className="grid grid-cols-3 gap-4">
+                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
                                     {project.metrics.map((metric, idx) => (
                                         <Card key={idx} className="bg-white border-2 border-brand-neutral-light shadow-md hover:shadow-xl hover:border-brand-accent-blue/30 transition-all duration-300">
-                                            <CardContent className="flex items-center justify-center p-4 text-center h-full">
-                                                <span className="font-bold text-brand-blue text-sm">{metric}</span>
+                                            <CardContent className="flex items-center justify-center p-3 sm:p-4 text-center h-full">
+                                                <span className="font-bold text-brand-blue text-xs sm:text-sm">{metric}</span>
                                             </CardContent>
                                         </Card>
                                     ))}
                                 </div>
 
                                 {/* Challenge & Solution */}
-                                <div className="space-y-4 mb-6">
+                                <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
                                     <div>
-                                        <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
-                                            <TrendingUp className="h-5 w-5 text-brand-blue" />
+                                        <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2 text-sm sm:text-base">
+                                            <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5 text-brand-blue" />
                                             Challenge
                                         </h4>
-                                        <p className="text-sm text-foreground/70">{project.challenges}</p>
+                                        <p className="text-xs sm:text-sm text-foreground/70">{project.challenges}</p>
                                     </div>
                                     <div>
-                                        <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
-                                            <Users className="h-5 w-5 text-brand-blue" />
+                                        <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2 text-sm sm:text-base">
+                                            <Users className="h-4 w-4 sm:h-5 sm:w-5 text-brand-blue" />
                                             Solution
                                         </h4>
-                                        <p className="text-sm text-foreground/70">{project.solution}</p>
+                                        <p className="text-xs sm:text-sm text-foreground/70">{project.solution}</p>
                                     </div>
                                     <div>
-                                        <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
-                                            <DollarSign className="h-5 w-5 text-brand-blue" />
+                                        <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2 text-sm sm:text-base">
+                                            <DollarSign className="h-4 w-4 sm:h-5 sm:w-5 text-brand-blue" />
                                             Results
                                         </h4>
                                         <ul className="space-y-1">
                                             {project.results.map((result, idx) => (
-                                                <li key={idx} className="text-sm text-foreground/70 flex items-start gap-2">
+                                                <li key={idx} className="text-xs sm:text-sm text-foreground/70 flex items-start gap-2">
                                                     <span className="text-brand-blue">•</span>
                                                     {result}
                                                 </li>

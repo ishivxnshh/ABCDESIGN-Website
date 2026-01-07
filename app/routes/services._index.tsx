@@ -61,48 +61,48 @@ export default function Services() {
     ];
 
     return (
-        <div className="bg-white min-h-screen pb-20">
-            <div className="relative bg-brand-neutral-light/30 py-20 border-b border-brand-neutral-light overflow-hidden">
+        <div className="bg-white min-h-screen pb-12 sm:pb-16 md:pb-20">
+            <div className="relative bg-brand-neutral-light/30 py-12 sm:py-16 md:py-20 border-b border-brand-neutral-light overflow-hidden">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(0,61,122,0.05),transparent_70%)]" />
                 <div className="container mx-auto px-4 text-center relative z-10">
-                    <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 sm:mb-6 leading-tight">
                         Our <span className="text-brand-blue">Expertise</span>
                     </h1>
-                    <p className="text-xl text-foreground/70 max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-base sm:text-lg md:text-xl text-foreground/70 max-w-2xl mx-auto leading-relaxed">
                         We offer a suite of integrated services designed to elevate your business.
                     </p>
                 </div>
             </div>
 
             {/* Services Grid */}
-            <div className="container mx-auto px-4 py-20">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="container mx-auto px-4 py-12 sm:py-16 md:py-20">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                     {services.map((service, i) => (
                         <Card key={i} className="group flex flex-col border-2 border-brand-neutral-light shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 bg-white hover:border-brand-accent-blue/30 overflow-hidden">
                             <CardHeader className="relative">
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-brand-blue/10 rounded-full -translate-y-16 translate-x-16 transition-transform duration-500" />
                                 <div className="relative z-10">
-                                    <div className="inline-flex p-3 rounded-xl bg-brand-blue text-white mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                                        <service.icon className="h-8 w-8" />
+                                    <div className="inline-flex p-2.5 sm:p-3 rounded-xl bg-brand-blue text-white mb-3 sm:mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                        <service.icon className="h-7 w-7 sm:h-8 sm:w-8" />
                                     </div>
-                                    <CardTitle className="text-2xl text-foreground group-hover:text-brand-blue transition-colors">{service.title}</CardTitle>
-                                    <CardDescription className="text-foreground/70 mt-3 leading-relaxed">{service.desc}</CardDescription>
+                                    <CardTitle className="text-xl sm:text-2xl text-foreground group-hover:text-brand-blue transition-colors">{service.title}</CardTitle>
+                                    <CardDescription className="text-foreground/70 mt-2 sm:mt-3 leading-relaxed text-sm sm:text-base">{service.desc}</CardDescription>
                                 </div>
                             </CardHeader>
-                            <CardContent className="flex-1 pt-6">
-                                <ul className="space-y-3">
+                            <CardContent className="flex-1 pt-4 sm:pt-6">
+                                <ul className="space-y-2 sm:space-y-3">
                                     {service.items.map((item, idx) => (
-                                        <li key={idx} className="flex items-start gap-3 text-sm text-foreground/70">
-                                            <CheckCircle className="h-5 w-5 text-brand-blue flex-shrink-0 mt-0.5" />
+                                        <li key={idx} className="flex items-start gap-2 sm:gap-3 text-xs sm:text-sm text-foreground/70">
+                                            <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-brand-blue flex-shrink-0 mt-0.5" />
                                             <span className="leading-relaxed">{item}</span>
                                         </li>
                                     ))}
                                 </ul>
                             </CardContent>
-                            <CardFooter className="pt-6">
+                            <CardFooter className="pt-4 sm:pt-6">
                                 <Button 
                                     variant="ghost" 
-                                    className="w-full text-brand-blue hover:text-white hover:bg-brand-blue group/btn transition-all duration-300"
+                                    className="w-full text-brand-blue hover:text-white hover:bg-brand-blue group/btn transition-all duration-300 text-sm sm:text-base"
                                     onClick={() => navigate(service.link)}
                                 >
                                     <span className="inline-flex items-center gap-2">
@@ -117,24 +117,24 @@ export default function Services() {
             </div>
 
             {/* Our Process */}
-            <div className="bg-brand-neutral-light/20 py-24 border-y border-brand-neutral-light">
+            <div className="bg-brand-neutral-light/20 py-12 sm:py-16 md:py-24 border-y border-brand-neutral-light">
                 <div className="container mx-auto px-4">
-                    <div className="text-center max-w-3xl mx-auto mb-20">
-                        <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">Our Process</h2>
-                        <p className="text-lg text-foreground/70">A proven methodology that delivers results</p>
+                    <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 md:mb-20">
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 sm:mb-6">Our Process</h2>
+                        <p className="text-base sm:text-lg text-foreground/70">A proven methodology that delivers results</p>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
                         {process.map((item, i) => (
                             <div key={i} className="group text-center relative">
                                 {i < 3 && (
                                     <div className="hidden lg:block absolute top-8 left-[60%] w-[80%] h-0.5 bg-brand-accent-blue/30 z-0" />
                                 )}
                                 <div className="relative z-10">
-                                    <div className="w-20 h-20 rounded-full bg-brand-blue text-white flex items-center justify-center text-2xl font-bold mx-auto mb-6 shadow-xl group-hover:shadow-2xl group-hover:scale-110 transition-all duration-300">
+                                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-brand-blue text-white flex items-center justify-center text-xl sm:text-2xl font-bold mx-auto mb-4 sm:mb-6 shadow-xl group-hover:shadow-2xl group-hover:scale-110 transition-all duration-300">
                                         {item.step}
                                     </div>
-                                    <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-brand-blue transition-colors">{item.title}</h3>
-                                    <p className="text-foreground/70 text-sm leading-relaxed">{item.desc}</p>
+                                    <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2 sm:mb-3 group-hover:text-brand-blue transition-colors">{item.title}</h3>
+                                    <p className="text-foreground/70 text-xs sm:text-sm leading-relaxed">{item.desc}</p>
                                 </div>
                             </div>
                         ))}

@@ -27,25 +27,25 @@ export default function Contact() {
     return (
         <div className="bg-white min-h-screen">
             {/* Hero Section */}
-            <div className="relative bg-brand-blue text-white py-20 overflow-hidden">
+            <div className="relative bg-brand-blue text-white py-12 sm:py-16 md:py-20 overflow-hidden">
                 <div className="absolute inset-0 bg-brand-dark-navy/20" />
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
                 <div className="container mx-auto px-4 text-center relative z-10">
-                    <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">Get in Touch</h1>
-                    <p className="text-white/90 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">Get in Touch</h1>
+                    <p className="text-white/90 text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
                         Ready to start your project? We'd love to hear from you. Fill out the form or reach out through any of our contact channels.
                     </p>
                 </div>
             </div>
 
-            <div className="container mx-auto px-4 py-16">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="container mx-auto px-4 py-8 sm:py-12 md:py-16">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
                     {/* Contact Form */}
                     <div className="lg:col-span-2">
                         <Card className="border-2 border-brand-neutral-light shadow-lg hover:shadow-xl transition-shadow duration-300">
-                            <CardContent className="p-8 md:p-10">
-                                <h2 className="text-3xl font-bold text-foreground mb-2">Send Us a Message</h2>
-                                <p className="text-foreground/70 mb-8 text-lg">We typically respond within 24 hours</p>
+                            <CardContent className="p-6 sm:p-8 md:p-10">
+                                <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Send Us a Message</h2>
+                                <p className="text-foreground/70 mb-6 sm:mb-8 text-base sm:text-lg">We typically respond within 24 hours</p>
 
                                 {actionData?.success ? (
                                     <div className="p-6 bg-gradient-to-r from-green-50 to-emerald-50 text-green-800 rounded-xl mb-6 border-2 border-green-200 shadow-md">
@@ -239,12 +239,78 @@ export default function Contact() {
                 </div>
             </div>
 
-            {/* FAQ or Additional Info */}
-            <div className="bg-brand-neutral-light/30 py-16">
+            {/* FAQ Section */}
+            <div id="faqs" className="bg-brand-neutral-light/30 py-12 sm:py-16">
+                <div className="container mx-auto px-4">
+                    <div className="max-w-4xl mx-auto">
+                        <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-3 sm:mb-4 text-center">Frequently Asked Questions</h2>
+                        <p className="text-foreground/70 mb-8 sm:mb-10 md:mb-12 text-center text-base sm:text-lg">Quick answers to common questions</p>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                            <Card className="border-2 border-brand-neutral-light shadow-sm hover:shadow-md transition-shadow">
+                                <CardContent className="pt-4 sm:pt-6">
+                                    <h3 className="text-base sm:text-lg font-bold text-foreground mb-2 sm:mb-3">What is your response time?</h3>
+                                    <p className="text-foreground/70 text-xs sm:text-sm leading-relaxed">
+                                        We typically respond to all inquiries within 24 hours during business days. For urgent matters, feel free to call us directly.
+                                    </p>
+                                </CardContent>
+                            </Card>
+
+                            <Card className="border-2 border-brand-neutral-light shadow-sm hover:shadow-md transition-shadow">
+                                <CardContent className="pt-4 sm:pt-6">
+                                    <h3 className="text-base sm:text-lg font-bold text-foreground mb-2 sm:mb-3">Do you offer free consultations?</h3>
+                                    <p className="text-foreground/70 text-xs sm:text-sm leading-relaxed">
+                                        Yes! We offer a free 30-minute consultation to discuss your project needs and explore how we can help achieve your goals.
+                                    </p>
+                                </CardContent>
+                            </Card>
+
+                            <Card className="border-2 border-brand-neutral-light shadow-sm hover:shadow-md transition-shadow">
+                                <CardContent className="pt-4 sm:pt-6">
+                                    <h3 className="text-base sm:text-lg font-bold text-foreground mb-2 sm:mb-3">What services do you provide?</h3>
+                                    <p className="text-foreground/70 text-xs sm:text-sm leading-relaxed">
+                                        We offer web development, digital marketing, SEO, branding & creative services, and growth consulting tailored to your business needs.
+                                    </p>
+                                </CardContent>
+                            </Card>
+
+                            <Card className="border-2 border-brand-neutral-light shadow-sm hover:shadow-md transition-shadow">
+                                <CardContent className="pt-4 sm:pt-6">
+                                    <h3 className="text-base sm:text-lg font-bold text-foreground mb-2 sm:mb-3">What is your project timeline?</h3>
+                                    <p className="text-foreground/70 text-xs sm:text-sm leading-relaxed">
+                                        Project timelines vary based on scope and complexity. We'll provide a detailed timeline during our initial consultation.
+                                    </p>
+                                </CardContent>
+                            </Card>
+
+                            <Card className="border-2 border-brand-neutral-light shadow-sm hover:shadow-md transition-shadow">
+                                <CardContent className="pt-4 sm:pt-6">
+                                    <h3 className="text-base sm:text-lg font-bold text-foreground mb-2 sm:mb-3">Do you work with international clients?</h3>
+                                    <p className="text-foreground/70 text-xs sm:text-sm leading-relaxed">
+                                        Absolutely! We work with clients worldwide and have offices in New York, London, and Singapore to serve you better.
+                                    </p>
+                                </CardContent>
+                            </Card>
+
+                            <Card className="border-2 border-brand-neutral-light shadow-sm hover:shadow-md transition-shadow">
+                                <CardContent className="pt-4 sm:pt-6">
+                                    <h3 className="text-base sm:text-lg font-bold text-foreground mb-2 sm:mb-3">What is your pricing model?</h3>
+                                    <p className="text-foreground/70 text-xs sm:text-sm leading-relaxed">
+                                        We offer flexible pricing based on project requirements. Contact us for a customized quote tailored to your specific needs.
+                                    </p>
+                                </CardContent>
+                            </Card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* CTA Section */}
+            <div className="bg-white py-12 sm:py-16">
                 <div className="container mx-auto px-4">
                     <div className="max-w-3xl mx-auto text-center">
-                        <h2 className="text-3xl font-bold text-foreground mb-6">Prefer to Talk First?</h2>
-                        <p className="text-foreground/70 mb-8">
+                        <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4 sm:mb-6">Prefer to Talk First?</h2>
+                        <p className="text-foreground/70 mb-6 sm:mb-8 text-sm sm:text-base">
                             Schedule a free 30-minute consultation with our team to discuss your project needs and explore how we can help you achieve your goals.
                         </p>
                         <Button size="lg" className="bg-brand-blue hover:bg-brand-dark-navy text-white transition-all duration-300">
