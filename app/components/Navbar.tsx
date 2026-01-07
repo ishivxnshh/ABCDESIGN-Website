@@ -35,9 +35,11 @@ export function Navbar() {
                     to="/" 
                     className="flex items-center transition-transform duration-300 hover:scale-105 focus-ring rounded-md"
                 >
-                    <span className="text-2xl font-bold text-white tracking-tight">
-                        ABC<span className="text-brand-accent-blue">DESIGN</span>
-                    </span>
+                    <img 
+                        src="/logo.svg" 
+                        alt="ABCDESIGN" 
+                        className="h-6 w-auto brightness-0 invert" 
+                    />
                 </Link>
 
                 {/* Desktop Nav */}

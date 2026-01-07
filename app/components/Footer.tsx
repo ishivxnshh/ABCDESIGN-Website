@@ -9,6 +9,17 @@ export function Footer() {
             <div className="absolute top-0 left-0 right-0 h-px bg-white/20" />
             
             <div className="container mx-auto px-4 relative z-10">
+                {/* Logo */}
+                <div className="mb-12">
+                    <Link to="/" className="inline-block transition-transform duration-300 hover:scale-105">
+                        <img 
+                            src="/logo.svg" 
+                            alt="ABCDESIGN" 
+                            className="h-8 w-auto brightness-0 invert" 
+                        />
+                    </Link>
+                </div>
+
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                     {/* Column 1: Featured Links */}
                     <div className="space-y-6">
