@@ -1,17 +1,21 @@
+import type { MetaFunction } from "@remix-run/node";
 import { Card, CardContent } from "~/components/ui/card";
 import { Users, Target, Lightbulb, Award, TrendingUp, Shield } from "lucide-react";
 
-export function meta() {
+export const meta: MetaFunction = () => {
     return [{ title: "About Us - ABCDESIGN" }];
-}
+};
 
 export default function About() {
     return (
         <div className="bg-white">
-            <div className="bg-slate-50 py-16 md:py-24 border-b border-slate-100">
-                <div className="container mx-auto px-4">
-                    <h1 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6 text-center">About ABCDESIGN</h1>
-                    <p className="text-xl text-slate-600 max-w-3xl mx-auto text-center">
+            <div className="relative bg-gradient-to-br from-tata-light-grey via-white to-tata-light-grey py-20 md:py-28 border-b border-tata-silver/50 overflow-hidden">
+                <div className="absolute inset-0 bg-tata-silver/10" />
+                <div className="container mx-auto px-4 relative z-10">
+                    <h1 className="text-4xl md:text-6xl font-bold text-tata-dark-grey mb-6 text-center leading-tight">
+                        About <span className="text-primary">ABCDESIGN</span>
+                    </h1>
+                    <p className="text-xl md:text-2xl text-foreground/70 max-w-3xl mx-auto text-center leading-relaxed">
                         A strategic partner for enterprises seeking digital transformation and sustainable growth.
                     </p>
                 </div>
@@ -38,22 +42,25 @@ export default function About() {
 
                 {/* Company Timeline */}
                 <div className="mt-24">
-                    <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">Our Journey</h2>
-                    <div className="max-w-4xl mx-auto">
-                        <div className="space-y-8">
+                    <h2 className="text-4xl font-bold text-slate-900 mb-16 text-center">Our Journey</h2>
+                    <div className="max-w-4xl mx-auto relative">
+                        {/* Timeline line */}
+                        <div className="absolute left-10 top-10 bottom-10 w-0.5 bg-gradient-to-b from-subheading via-primary to-subheading hidden md:block" />
+                        
+                        <div className="space-y-12">
                             {[
                                 { year: "2014", title: "Founded", desc: "Started with a vision to bridge the gap between technology and business strategy" },
                                 { year: "2017", title: "Enterprise Focus", desc: "Shifted focus to serve Fortune 500 companies with specialized solutions" },
                                 { year: "2020", title: "Global Expansion", desc: "Opened offices in 3 continents, serving clients worldwide" },
                                 { year: "2024", title: "Innovation Leader", desc: "Recognized as a top digital transformation partner by industry analysts" }
                             ].map((milestone, i) => (
-                                <div key={i} className="flex gap-6 items-start">
-                                    <div className="flex-shrink-0 w-20 h-20 rounded-full bg-subheading text-white flex items-center justify-center font-bold text-lg">
+                                <div key={i} className="flex gap-6 items-start group">
+                                    <div className="relative flex-shrink-0 w-20 h-20 rounded-full bg-primary text-white flex items-center justify-center font-bold text-lg shadow-lg group-hover:shadow-2xl group-hover:scale-110 transition-all duration-300 z-10">
                                         {milestone.year}
                                     </div>
-                                    <div className="flex-1 pt-2">
-                                        <h3 className="text-xl font-bold text-slate-900 mb-2">{milestone.title}</h3>
-                                        <p className="text-slate-600">{milestone.desc}</p>
+                                    <div className="flex-1 pt-2 bg-tata-light-grey p-6 rounded-xl border-2 border-tata-silver/50 group-hover:border-primary group-hover:shadow-lg transition-all duration-300">
+                                        <h3 className="text-2xl font-bold text-tata-dark-grey mb-3 group-hover:text-primary transition-colors">{milestone.title}</h3>
+                                        <p className="text-foreground/70 leading-relaxed">{milestone.desc}</p>
                                     </div>
                                 </div>
                             ))}
@@ -63,18 +70,23 @@ export default function About() {
 
                 {/* Core Values */}
                 <div className="mt-24">
-                    <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">Our Core Values</h2>
+                    <h2 className="text-4xl font-bold text-slate-900 mb-16 text-center">Our Core Values</h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {[
                             { icon: Shield, title: "Integrity", desc: "We uphold the highest standards of honesty and transparency in all our engagements." },
                             { icon: Award, title: "Excellence", desc: "We are committed to delivering work that exceeds expectations and industry standards." },
                             { icon: Lightbulb, title: "Innovation", desc: "We constantly evolve, adopting the latest technologies to keep our clients ahead." }
                         ].map((val, i) => (
-                            <Card key={i} className="bg-slate-50 border-none shadow-sm hover:shadow-md transition-shadow">
-                                <CardContent className="pt-6">
-                                    <val.icon className="h-12 w-12 text-subheading mb-4" />
-                                    <h3 className="text-xl font-bold text-slate-900 mb-2">{val.title}</h3>
-                                    <p className="text-slate-600">{val.desc}</p>
+                            <Card key={i} className="group bg-white border-2 border-tata-silver/50 shadow-md hover:shadow-2xl hover:border-primary hover:-translate-y-2 transition-all duration-500 overflow-hidden">
+                                <CardContent className="pt-8 pb-8 relative">
+                                    <div className="absolute inset-0 bg-tata-light-grey opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                    <div className="relative z-10">
+                                        <div className="inline-flex p-3 rounded-xl bg-primary mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                            <val.icon className="h-10 w-10 text-white" />
+                                        </div>
+                                        <h3 className="text-2xl font-bold text-tata-dark-grey mb-3 group-hover:text-primary transition-colors">{val.title}</h3>
+                                        <p className="text-foreground/70 leading-relaxed">{val.desc}</p>
+                                    </div>
                                 </CardContent>
                             </Card>
                         ))}
@@ -82,23 +94,28 @@ export default function About() {
                 </div>
 
                 {/* Leadership Approach */}
-                <div className="mt-24 bg-deep text-white rounded-2xl p-12">
-                    <div className="max-w-4xl mx-auto text-center">
-                        <Users className="h-16 w-16 mx-auto mb-6 opacity-90" />
-                        <h2 className="text-3xl font-bold mb-6">Our Approach</h2>
-                        <p className="text-white/80 text-lg leading-relaxed mb-8">
+                <div className="mt-24 relative bg-primary text-white rounded-3xl p-12 md:p-16 overflow-hidden shadow-2xl">
+                    <div className="absolute inset-0 bg-tata-dark-blue/30" />
+                    <div className="max-w-4xl mx-auto text-center relative z-10">
+                        <div className="inline-flex p-4 rounded-2xl bg-white/10 backdrop-blur-sm mb-6">
+                            <Users className="h-16 w-16 text-white" />
+                        </div>
+                        <h2 className="text-4xl md:text-5xl font-bold mb-6">Our Approach</h2>
+                        <p className="text-white/90 text-lg md:text-xl leading-relaxed mb-12">
                             We combine strategic consulting with hands-on execution. Our multidisciplinary teams include strategists, designers, developers, and growth specialists who work collaboratively to deliver holistic solutions.
                         </p>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                             {[
                                 { icon: Target, label: "Strategy First", desc: "Every project begins with understanding your business goals" },
                                 { icon: Users, label: "Collaborative", desc: "We work as an extension of your team" },
                                 { icon: TrendingUp, label: "Results Focused", desc: "Success is measured by tangible business outcomes" }
                             ].map((approach, i) => (
-                                <div key={i} className="text-center">
-                                    <approach.icon className="h-10 w-10 mx-auto mb-3 text-subheading" />
-                                    <div className="font-semibold mb-2">{approach.label}</div>
-                                    <div className="text-sm text-white/70">{approach.desc}</div>
+                                <div key={i} className="group text-center p-6 rounded-2xl bg-white/5 backdrop-blur-sm border-2 border-tata-silver/20 hover:bg-white/10 hover:border-tata-silver/40 transition-all duration-300 hover:-translate-y-2">
+                                    <div className="inline-flex p-3 rounded-xl bg-white mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                        <approach.icon className="h-8 w-8 text-primary" />
+                                    </div>
+                                    <div className="font-bold text-lg mb-2">{approach.label}</div>
+                                    <div className="text-sm text-white/80 leading-relaxed">{approach.desc}</div>
                                 </div>
                             ))}
                         </div>
@@ -107,17 +124,22 @@ export default function About() {
 
                 {/* Stats Section */}
                 <div className="mt-24">
-                    <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">By the Numbers</h2>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <h2 className="text-4xl font-bold text-slate-900 mb-16 text-center">By the Numbers</h2>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                         {[
                             { number: "500+", label: "Projects Delivered" },
                             { number: "150+", label: "Enterprise Clients" },
                             { number: "50+", label: "Team Members" },
                             { number: "12", label: "Countries Served" }
                         ].map((stat, i) => (
-                            <div key={i} className="text-center p-6 bg-slate-50 rounded-lg">
-                                <div className="text-4xl font-bold text-subheading mb-2">{stat.number}</div>
-                                <div className="text-slate-600 font-medium">{stat.label}</div>
+                            <div key={i} className="group text-center p-8 bg-white border-2 border-tata-silver/50 rounded-2xl hover:border-primary hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 relative overflow-hidden">
+                                <div className="absolute inset-0 bg-tata-light-grey opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                <div className="relative z-10">
+                                    <div className="text-5xl md:text-6xl font-bold text-primary mb-3 group-hover:scale-110 transition-transform duration-300">
+                                        {stat.number}
+                                    </div>
+                                    <div className="text-foreground/70 font-semibold text-sm md:text-base">{stat.label}</div>
+                                </div>
                             </div>
                         ))}
                     </div>

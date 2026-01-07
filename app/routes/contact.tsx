@@ -1,4 +1,6 @@
-import { Form, useActionData, useNavigation } from "react-router";
+import { Form, useActionData, useNavigation } from "@remix-run/react";
+import type { ActionFunctionArgs, MetaFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
@@ -6,15 +8,15 @@ import { Textarea } from "~/components/ui/textarea";
 import { Card, CardContent } from "~/components/ui/card";
 import { MapPin, Mail, Phone, Clock, Linkedin, Twitter, Facebook, Instagram } from "lucide-react";
 
-export function meta() {
+export const meta: MetaFunction = () => {
     return [{ title: "Contact Us - ABCDESIGN" }];
-}
+};
 
-export async function action({ request }: { request: Request }) {
+export async function action({ request }: ActionFunctionArgs) {
     const formData = await request.formData();
     // Simulate processing
     await new Promise(r => setTimeout(r, 1000));
-    return { success: true };
+    return json({ success: true });
 }
 
 export default function Contact() {
@@ -23,12 +25,14 @@ export default function Contact() {
     const isSubmitting = navigation.state === "submitting";
 
     return (
-        <div className="bg-slate-50 min-h-screen">
+        <div className="bg-white min-h-screen">
             {/* Hero Section */}
-            <div className="bg-deep text-white py-16">
-                <div className="container mx-auto px-4 text-center">
-                    <h1 className="text-4xl font-bold mb-4">Get in Touch</h1>
-                    <p className="text-white/80 max-w-2xl mx-auto">
+            <div className="relative bg-brand-blue text-white py-20 overflow-hidden">
+                <div className="absolute inset-0 bg-brand-dark-navy/20" />
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+                <div className="container mx-auto px-4 text-center relative z-10">
+                    <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">Get in Touch</h1>
+                    <p className="text-white/90 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
                         Ready to start your project? We'd love to hear from you. Fill out the form or reach out through any of our contact channels.
                     </p>
                 </div>
@@ -38,14 +42,14 @@ export default function Contact() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Contact Form */}
                     <div className="lg:col-span-2">
-                        <Card className="border border-slate-200 shadow-sm">
-                            <CardContent className="p-8">
-                                <h2 className="text-2xl font-bold text-slate-900 mb-2">Send Us a Message</h2>
-                                <p className="text-slate-600 mb-8">We typically respond within 24 hours</p>
+                        <Card className="border-2 border-brand-neutral-light shadow-lg hover:shadow-xl transition-shadow duration-300">
+                            <CardContent className="p-8 md:p-10">
+                                <h2 className="text-3xl font-bold text-foreground mb-2">Send Us a Message</h2>
+                                <p className="text-foreground/70 mb-8 text-lg">We typically respond within 24 hours</p>
 
                                 {actionData?.success ? (
-                                    <div className="p-6 bg-green-50 text-green-700 rounded-md mb-6 border border-green-200">
-                                        <h3 className="font-semibold mb-2">Thank you for reaching out!</h3>
+                                    <div className="p-6 bg-gradient-to-r from-green-50 to-emerald-50 text-green-800 rounded-xl mb-6 border-2 border-green-200 shadow-md">
+                                        <h3 className="font-bold mb-2 text-lg">Thank you for reaching out!</h3>
                                         <p>We've received your message and will be in touch shortly.</p>
                                     </div>
                                 ) : (
@@ -76,7 +80,11 @@ export default function Contact() {
 
                                         <div className="space-y-2">
                                             <Label htmlFor="service">Service Interested In</Label>
-                                            <select id="service" name="service" className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                                            <select 
+                                                id="service" 
+                                                name="service" 
+                                                className="flex h-11 w-full rounded-lg border-2 border-input bg-white px-4 py-2 text-base shadow-sm transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary hover:border-primary/50 md:text-sm"
+                                            >
                                                 <option value="">Select a service</option>
                                                 <option value="digital-marketing">Digital Marketing</option>
                                                 <option value="seo">SEO & Performance</option>
@@ -98,8 +106,20 @@ export default function Contact() {
                                             />
                                         </div>
 
-                                        <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
-                                            {isSubmitting ? "Sending..." : "Send Message"}
+                                        <Button 
+                                            type="submit" 
+                                            className="w-full shadow-lg hover:shadow-xl" 
+                                            size="lg" 
+                                            disabled={isSubmitting}
+                                        >
+                                            {isSubmitting ? (
+                                                <span className="inline-flex items-center gap-2">
+                                                    <span className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full" />
+                                                    Sending...
+                                                </span>
+                                            ) : (
+                                                "Send Message"
+                                            )}
                                         </Button>
                                     </Form>
                                 )}
@@ -110,16 +130,16 @@ export default function Contact() {
                     {/* Contact Information */}
                     <div className="space-y-6">
                         {/* Office Locations */}
-                        <Card className="border border-slate-200 shadow-sm">
+                        <Card className="border-2 border-brand-neutral-light shadow-sm hover:shadow-lg transition-shadow">
                             <CardContent className="pt-6">
-                                <h3 className="text-xl font-bold text-slate-900 mb-6">Our Offices</h3>
+                                <h3 className="text-xl font-bold text-foreground mb-6">Our Offices</h3>
                                 <div className="space-y-6">
                                     <div>
                                         <div className="flex items-start gap-3 mb-2">
-                                            <MapPin className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
+                                            <MapPin className="h-5 w-5 text-brand-blue flex-shrink-0 mt-1" />
                                             <div>
-                                                <h4 className="font-semibold text-slate-900 mb-1">New York (HQ)</h4>
-                                                <p className="text-sm text-slate-600">
+                                                <h4 className="font-semibold text-foreground mb-1">New York (HQ)</h4>
+                                                <p className="text-sm text-foreground/70">
                                                     123 Business Avenue<br />
                                                     New York, NY 10001<br />
                                                     United States
@@ -130,10 +150,10 @@ export default function Contact() {
                                     
                                     <div>
                                         <div className="flex items-start gap-3 mb-2">
-                                            <MapPin className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
+                                            <MapPin className="h-5 w-5 text-brand-blue flex-shrink-0 mt-1" />
                                             <div>
-                                                <h4 className="font-semibold text-slate-900 mb-1">London</h4>
-                                                <p className="text-sm text-slate-600">
+                                                <h4 className="font-semibold text-foreground mb-1">London</h4>
+                                                <p className="text-sm text-foreground/70">
                                                     45 Tech Street<br />
                                                     London EC1A 1BB<br />
                                                     United Kingdom
@@ -144,10 +164,10 @@ export default function Contact() {
 
                                     <div>
                                         <div className="flex items-start gap-3 mb-2">
-                                            <MapPin className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
+                                            <MapPin className="h-5 w-5 text-brand-blue flex-shrink-0 mt-1" />
                                             <div>
-                                                <h4 className="font-semibold text-slate-900 mb-1">Singapore</h4>
-                                                <p className="text-sm text-slate-600">
+                                                <h4 className="font-semibold text-foreground mb-1">Singapore</h4>
+                                                <p className="text-sm text-foreground/70">
                                                     88 Innovation Boulevard<br />
                                                     Singapore 018956<br />
                                                     Singapore
@@ -160,35 +180,35 @@ export default function Contact() {
                         </Card>
 
                         {/* Contact Details */}
-                        <Card className="border border-slate-200 shadow-sm">
+                        <Card className="border-2 border-brand-neutral-light shadow-sm hover:shadow-lg transition-shadow">
                             <CardContent className="pt-6">
-                                <h3 className="text-xl font-bold text-slate-900 mb-6">Contact Details</h3>
+                                <h3 className="text-xl font-bold text-foreground mb-6">Contact Details</h3>
                                 <div className="space-y-4">
                                     <div className="flex items-center gap-3">
-                                        <Mail className="h-5 w-5 text-primary" />
+                                        <Mail className="h-5 w-5 text-brand-blue" />
                                         <div>
-                                            <p className="text-sm font-medium text-slate-900">Email</p>
-                                            <a href="mailto:contact@abcdesign.com" className="text-sm text-subheading hover:underline">
+                                            <p className="text-sm font-medium text-foreground">Email</p>
+                                            <a href="mailto:contact@abcdesign.com" className="text-sm text-brand-blue hover:text-brand-accent-blue hover:underline transition-colors">
                                                 contact@abcdesign.com
                                             </a>
                                         </div>
                                     </div>
 
                                     <div className="flex items-center gap-3">
-                                        <Phone className="h-5 w-5 text-primary" />
+                                        <Phone className="h-5 w-5 text-brand-blue" />
                                         <div>
-                                            <p className="text-sm font-medium text-slate-900">Phone</p>
-                                            <a href="tel:+12125551234" className="text-sm text-subheading hover:underline">
+                                            <p className="text-sm font-medium text-foreground">Phone</p>
+                                            <a href="tel:+12125551234" className="text-sm text-brand-blue hover:text-brand-accent-blue hover:underline transition-colors">
                                                 +1 (212) 555-1234
                                             </a>
                                         </div>
                                     </div>
 
                                     <div className="flex items-center gap-3">
-                                        <Clock className="h-5 w-5 text-primary" />
+                                        <Clock className="h-5 w-5 text-brand-blue" />
                                         <div>
-                                            <p className="text-sm font-medium text-slate-900">Business Hours</p>
-                                            <p className="text-sm text-slate-600">Mon - Fri: 9:00 AM - 6:00 PM EST</p>
+                                            <p className="text-sm font-medium text-foreground">Business Hours</p>
+                                            <p className="text-sm text-foreground/70">Mon - Fri: 9:00 AM - 6:00 PM EST</p>
                                         </div>
                                     </div>
                                 </div>
@@ -196,20 +216,20 @@ export default function Contact() {
                         </Card>
 
                         {/* Social Media */}
-                        <Card className="border border-slate-200 shadow-sm">
+                        <Card className="border-2 border-brand-neutral-light shadow-sm hover:shadow-lg transition-shadow">
                             <CardContent className="pt-6">
-                                <h3 className="text-xl font-bold text-slate-900 mb-6">Follow Us</h3>
+                                <h3 className="text-xl font-bold text-foreground mb-6">Follow Us</h3>
                                 <div className="flex gap-4">
-                                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-100 hover:bg-primary hover:text-white flex items-center justify-center transition-colors">
+                                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-brand-neutral-light hover:bg-brand-accent-blue hover:text-white flex items-center justify-center transition-all duration-300">
                                         <Linkedin className="h-5 w-5" />
                                     </a>
-                                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-100 hover:bg-primary hover:text-white flex items-center justify-center transition-colors">
+                                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-brand-neutral-light hover:bg-brand-accent-blue hover:text-white flex items-center justify-center transition-all duration-300">
                                         <Twitter className="h-5 w-5" />
                                     </a>
-                                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-100 hover:bg-primary hover:text-white flex items-center justify-center transition-colors">
+                                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-brand-neutral-light hover:bg-brand-accent-blue hover:text-white flex items-center justify-center transition-all duration-300">
                                         <Facebook className="h-5 w-5" />
                                     </a>
-                                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-100 hover:bg-primary hover:text-white flex items-center justify-center transition-colors">
+                                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-brand-neutral-light hover:bg-brand-accent-blue hover:text-white flex items-center justify-center transition-all duration-300">
                                         <Instagram className="h-5 w-5" />
                                     </a>
                                 </div>
@@ -220,14 +240,14 @@ export default function Contact() {
             </div>
 
             {/* FAQ or Additional Info */}
-            <div className="bg-white py-16">
+            <div className="bg-brand-neutral-light/30 py-16">
                 <div className="container mx-auto px-4">
                     <div className="max-w-3xl mx-auto text-center">
-                        <h2 className="text-3xl font-bold text-slate-900 mb-6">Prefer to Talk First?</h2>
-                        <p className="text-slate-600 mb-8">
+                        <h2 className="text-3xl font-bold text-foreground mb-6">Prefer to Talk First?</h2>
+                        <p className="text-foreground/70 mb-8">
                             Schedule a free 30-minute consultation with our team to discuss your project needs and explore how we can help you achieve your goals.
                         </p>
-                        <Button size="lg" className="bg-primary hover:bg-primary/90">
+                        <Button size="lg" className="bg-brand-blue hover:bg-brand-dark-navy text-white transition-all duration-300">
                             Schedule a Call
                         </Button>
                     </div>

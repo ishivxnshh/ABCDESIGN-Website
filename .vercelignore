@@ -1,9 +1,8 @@
 node_modules
-
-/.cache
-/build
+.cache
+build
 .env
 .env.local
-
 .DS_Store
 *.log
+

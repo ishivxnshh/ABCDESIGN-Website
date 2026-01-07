@@ -1,188 +1,89 @@
 # ABCDESIGN - Enterprise Digital Solutions
 
-A modern, professional website for ABCDESIGN showcasing enterprise-grade digital marketing, branding, and technology solutions.
+A modern, enterprise-grade website built with Remix.js featuring a professional color system and responsive design.
 
-## 🎯 Project Overview
+## 🎨 Enterprise Color System
 
-ABCDESIGN is a comprehensive enterprise website built with React Router, featuring:
-- Modern design with professional aesthetics
-- Fully responsive across all devices
-- Smooth animations and transitions
-- SEO-optimized structure
-- Enterprise-grade UI components
+- **Primary Brand Blue** (`#0A3D78`) - Main backgrounds & CTAs
+- **Dark Navy** (`#081F3A`) - Navbar, Footer, structural elements
+- **Accent Blue** (`#2F80ED`) - Highlights, hover states
+- **Soft Blue** (`#0E4C8A`) - Cards & panels
+- **Neutrals** (`#FFFFFF`, `#E6EDF5`) - Text & dividers
+
+## 🚀 Quick Start
+
+### Development
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+Visit `http://localhost:5174` to view the site.
+
+### Build for Production
+
+```bash
+# Create production build
+npm run build
+
+# Preview production build
+npm start
+```
+
+## 📦 Deployment
+
+### Deploy to Vercel
+
+1. Push your code to GitHub
+2. Import your repository in Vercel
+3. Vercel will automatically detect Remix and configure the build
+4. Deploy!
+
+Or use the Vercel CLI:
+
+```bash
+npm install -g vercel
+vercel
+```
+
+### Environment Variables
+
+No environment variables required for basic deployment.
+
+## 🛠️ Tech Stack
+
+- **Framework**: Remix.js
+- **Styling**: Tailwind CSS
+- **UI Components**: Custom components with Radix UI primitives
+- **Icons**: Lucide React
+- **Deployment**: Vercel-ready
 
 ## 📁 Project Structure
 
 ```
 app/
-├── components/          # Reusable UI components
-│   ├── ui/             # shadcn/ui components
-│   ├── Footer.tsx      # Site footer with links and social media
-│   └── Navbar.tsx      # Navigation bar
-├── routes/             # Page routes
-│   ├── home.tsx        # Homepage with hero, services, testimonials
-│   ├── about.tsx       # About page with company info, values, timeline
-│   ├── services.tsx    # Services page with detailed offerings
-│   ├── work.tsx        # Case studies and portfolio
-│   └── contact.tsx     # Contact form with office locations
-├── lib/                # Utility functions
-└── app.css            # Global styles and custom animations
+├── components/     # Reusable UI components
+├── routes/         # Page routes
+├── lib/            # Utility functions
+└── app.css         # Global styles
 
-public/                # Static assets
-├── hero-graphic.svg   # Hero section illustration
-├── team-illustration.svg
-├── project-1.svg      # Case study images
-├── project-2.svg
-├── project-3.svg
-├── service-digital-marketing.svg
-├── service-web-dev.svg
-└── logo.svg
-
+public/             # Static assets
 ```
 
-## 🎨 Design Features
+## 🎯 Features
 
-### Color Scheme
-- **Primary**: Deep Blue (#0A0A5F) - Professional, trustworthy
-- **Subheading**: Blue (#307FE2) - Modern, tech-forward
-- **Foreground**: Dark Purple (#1A0B54) - Elegant, corporate
+- ✅ Enterprise-grade color system
+- ✅ Fully responsive design
+- ✅ Smooth animations
+- ✅ SEO optimized
+- ✅ Accessible components
+- ✅ Fast page loads
+- ✅ Modern UI/UX
 
-### Typography
-- Clean, modern sans-serif fonts
-- Clear hierarchy with bold headings
-- Readable body text with proper line-height
+## 📄 License
 
-## 📄 Pages Overview
-
-### Home Page
-- Hero section with compelling CTA
-- Trust indicators and statistics
-- Core value propositions
-- Featured services grid
-- Client testimonials
-- Trust badges and certifications
-- Strong CTA section
-
-### About Page
-- Company mission and vision
-- Company timeline (2014-2024)
-- Core values with icons
-- Our approach section
-- Team statistics
-
-### Services Page
-- Comprehensive service offerings:
-  - Digital Marketing
-  - SEO & Performance
-  - Branding & Creative
-  - Web Development
-  - Growth Consulting
-- 4-step process methodology
-- Benefits and differentiators
-- Strong call-to-action
-
-### Work/Portfolio Page
-- 5 detailed case studies with:
-  - Project images
-  - Challenge, solution, and results
-  - Metrics and outcomes
-  - Client testimonials
-- Industries served
-- Success story CTA
-
-### Contact Page
-- Comprehensive contact form
-- Multiple office locations (NY, London, Singapore)
-- Contact details (email, phone, hours)
-- Social media links
-- Consultation booking option
-
-## 🚀 Getting Started
-
-### Installation
-
-Install the dependencies:
-
-```bash
-npm install
-```
-
-### Development
-
-Start the development server with HMR:
-
-```bash
-npm run dev
-```
-
-Your application will be available at `http://localhost:5173`.
-
-## Building for Production
-
-Create a production build:
-
-```bash
-npm run build
-```
-
-## 🎯 Key Features
-
-✅ **Fully Responsive Design** - Works seamlessly on desktop, tablet, and mobile
-✅ **Professional Content** - Enterprise-focused copy throughout
-✅ **Visual Assets** - Custom SVG illustrations and graphics
-✅ **Contact Forms** - Functional form with validation
-✅ **SEO Optimized** - Meta tags and semantic HTML
-✅ **Fast Performance** - Optimized assets and code splitting
-✅ **Accessible** - WCAG compliant components
-✅ **Modern Stack** - React Router v7, TypeScript, TailwindCSS
-
-## 🛠️ Tech Stack
-
-- **Framework**: React Router v7
-- **Language**: TypeScript
-- **Styling**: TailwindCSS
-- **UI Components**: shadcn/ui
-- **Icons**: Lucide React
-- **Build Tool**: Vite
-
-## 📱 Social Media
-
-Connect with ABCDESIGN on:
-- LinkedIn
-- Twitter
-- Facebook
-- Instagram
-
-## 📞 Contact Information
-
-- **Email**: contact@abcdesign.com
-- **Phone**: +1 (212) 555-1234
-- **Headquarters**: New York, NY
-
-## 📝 License
-
-All rights reserved. ABCDESIGN © 2026
-
----
-
-Built with ❤️ by ABCDESIGN Team
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+All rights reserved © 2026 ABCDESIGN

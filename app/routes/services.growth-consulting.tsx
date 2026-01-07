@@ -1,11 +1,12 @@
+import type { MetaFunction } from "@remix-run/node";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "~/components/ui/card";
 import { Button } from "~/components/ui/button";
-import { Link } from "react-router";
+import { Link } from "@remix-run/react";
 import { BarChart, CheckCircle, ArrowLeft, TrendingUp, Target, LineChart, Cpu, PieChart, Activity } from "lucide-react";
 
-export function meta() {
+export const meta: MetaFunction = () => {
     return [{ title: "Growth Consulting Services - ABCDESIGN" }];
-}
+};
 
 export default function GrowthConsulting() {
     const features = [
@@ -29,7 +30,7 @@ export default function GrowthConsulting() {
     return (
         <div className="bg-slate-50 min-h-screen pb-20">
             {/* Hero Section */}
-            <div className="bg-gradient-to-br from-deep to-subheading text-white py-20">
+            <div className="bg-primary text-white py-20">
                 <div className="container mx-auto px-4">
                     <Button variant="ghost" className="text-white hover:bg-white/10 mb-8" asChild>
                         <Link to="/services">
@@ -90,7 +91,7 @@ export default function GrowthConsulting() {
                         { step: "04", title: "Measurement", desc: "Ongoing tracking and continuous optimization" }
                     ].map((item, i) => (
                         <div key={i} className="text-center">
-                            <div className="w-16 h-16 rounded-full bg-subheading text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+                            <div className="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                                 {item.step}
                             </div>
                             <h3 className="text-lg font-bold text-slate-900 mb-2">{item.title}</h3>
@@ -102,13 +103,13 @@ export default function GrowthConsulting() {
 
             {/* CTA Section */}
             <div className="container mx-auto px-4 py-16">
-                <Card className="bg-deep text-white border-none">
+                <Card className="bg-primary text-white border-none">
                     <CardContent className="pt-12 pb-12 text-center">
                         <h2 className="text-3xl font-bold mb-4">Ready to Accelerate Your Growth?</h2>
                         <p className="text-white/80 mb-8 max-w-2xl mx-auto">
                             Let's unlock new opportunities and drive sustainable business growth.
                         </p>
-                        <Button asChild size="lg" className="bg-white text-deep hover:bg-white/90">
+                        <Button asChild size="lg" className="bg-white text-primary hover:bg-tata-light-grey">
                             <Link to="/contact">Get Started Today</Link>
                         </Button>
                     </CardContent>

@@ -48,8 +48,15 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        deep: "hsl(var(--deep-bg))",
-        subheading: "hsl(var(--subheading))",
+        // Enterprise Color System
+        brand: {
+          blue: "hsl(var(--brand-blue))",
+          "dark-navy": "hsl(var(--dark-navy))",
+          "accent-blue": "hsl(var(--accent-blue))",
+          "soft-blue": "hsl(var(--soft-blue))",
+          "neutral-light": "hsl(var(--neutral-light))",
+          white: "hsl(var(--neutral-white))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -57,7 +64,7 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["Roboto", ...fontFamily.sans],
+        sans: ["Inter", ...fontFamily.sans],
       },
       keyframes: {
         "accordion-down": {

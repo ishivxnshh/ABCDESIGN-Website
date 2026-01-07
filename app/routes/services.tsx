@@ -1,11 +1,12 @@
+import type { MetaFunction } from "@remix-run/node";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "~/components/ui/card";
 import { Button } from "~/components/ui/button";
-import { Link } from "react-router";
+import { Link } from "@remix-run/react";
 import { BarChart, Globe, Megaphone, PenTool, Search, CheckCircle, ArrowRight } from "lucide-react";
 
-export function meta() {
+export const meta: MetaFunction = () => {
     return [{ title: "Our Services - ABCDESIGN" }];
-}
+};
 
 export default function Services() {
     const services = [
@@ -59,39 +60,50 @@ export default function Services() {
     ];
 
     return (
-        <div className="bg-slate-50 min-h-screen pb-20">
-            <div className="bg-white py-16 border-b border-slate-200">
-                <div className="container mx-auto px-4 text-center">
-                    <h1 className="text-4xl font-bold text-slate-900 mb-4">Our Expertise</h1>
-                    <p className="text-slate-600 max-w-2xl mx-auto">
+        <div className="bg-white min-h-screen pb-20">
+            <div className="relative bg-brand-neutral-light/30 py-20 border-b border-brand-neutral-light overflow-hidden">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(0,61,122,0.05),transparent_70%)]" />
+                <div className="container mx-auto px-4 text-center relative z-10">
+                    <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
+                        Our <span className="text-brand-blue">Expertise</span>
+                    </h1>
+                    <p className="text-xl text-foreground/70 max-w-2xl mx-auto leading-relaxed">
                         We offer a suite of integrated services designed to elevate your business.
                     </p>
                 </div>
             </div>
 
             {/* Services Grid */}
-            <div className="container mx-auto px-4 py-16">
+            <div className="container mx-auto px-4 py-20">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {services.map((service, i) => (
-                        <Card key={i} className="flex flex-col border border-slate-200 shadow-sm hover:shadow-md transition-shadow bg-white">
-                            <CardHeader>
-                                <service.icon className="h-10 w-10 text-primary mb-3" />
-                                <CardTitle className="text-xl text-slate-900">{service.title}</CardTitle>
-                                <CardDescription className="text-slate-500 mt-2">{service.desc}</CardDescription>
+                        <Card key={i} className="group flex flex-col border-2 border-brand-neutral-light shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 bg-white hover:border-brand-accent-blue/30 overflow-hidden">
+                            <CardHeader className="relative">
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-brand-blue/10 rounded-full -translate-y-16 translate-x-16 transition-transform duration-500" />
+                                <div className="relative z-10">
+                                    <div className="inline-flex p-3 rounded-xl bg-brand-blue text-white mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                        <service.icon className="h-8 w-8" />
+                                    </div>
+                                    <CardTitle className="text-2xl text-foreground group-hover:text-brand-blue transition-colors">{service.title}</CardTitle>
+                                    <CardDescription className="text-foreground/70 mt-3 leading-relaxed">{service.desc}</CardDescription>
+                                </div>
                             </CardHeader>
-                            <CardContent className="flex-1">
-                                <ul className="space-y-2">
+                            <CardContent className="flex-1 pt-6">
+                                <ul className="space-y-3">
                                     {service.items.map((item, idx) => (
-                                        <li key={idx} className="flex items-start gap-2 text-sm text-slate-600">
-                                            <CheckCircle className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                                            <span>{item}</span>
+                                        <li key={idx} className="flex items-start gap-3 text-sm text-foreground/70">
+                                            <CheckCircle className="h-5 w-5 text-brand-blue flex-shrink-0 mt-0.5" />
+                                            <span className="leading-relaxed">{item}</span>
                                         </li>
                                     ))}
                                 </ul>
                             </CardContent>
-                            <CardFooter>
-                                <Button variant="ghost" className="w-full text-primary hover:text-primary hover:bg-slate-50" asChild>
-                                    <Link to={service.link}>Learn More <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                            <CardFooter className="pt-6">
+                                <Button variant="ghost" className="w-full text-brand-blue hover:text-white hover:bg-brand-blue group/btn transition-all duration-300" asChild>
+                                    <Link to={service.link} className="inline-flex items-center gap-2">
+                                        Learn More 
+                                        <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+                                    </Link>
                                 </Button>
                             </CardFooter>
                         </Card>
@@ -100,20 +112,25 @@ export default function Services() {
             </div>
 
             {/* Our Process */}
-            <div className="bg-white py-20 border-y border-slate-200">
+            <div className="bg-brand-neutral-light/20 py-24 border-y border-brand-neutral-light">
                 <div className="container mx-auto px-4">
-                    <div className="text-center max-w-3xl mx-auto mb-16">
-                        <h2 className="text-3xl font-bold text-slate-900 mb-4">Our Process</h2>
-                        <p className="text-slate-600">A proven methodology that delivers results</p>
+                    <div className="text-center max-w-3xl mx-auto mb-20">
+                        <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">Our Process</h2>
+                        <p className="text-lg text-foreground/70">A proven methodology that delivers results</p>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         {process.map((item, i) => (
-                            <div key={i} className="text-center">
-                                <div className="w-16 h-16 rounded-full bg-subheading text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                                    {item.step}
+                            <div key={i} className="group text-center relative">
+                                {i < 3 && (
+                                    <div className="hidden lg:block absolute top-8 left-[60%] w-[80%] h-0.5 bg-brand-accent-blue/30 z-0" />
+                                )}
+                                <div className="relative z-10">
+                                    <div className="w-20 h-20 rounded-full bg-brand-blue text-white flex items-center justify-center text-2xl font-bold mx-auto mb-6 shadow-xl group-hover:shadow-2xl group-hover:scale-110 transition-all duration-300">
+                                        {item.step}
+                                    </div>
+                                    <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-brand-blue transition-colors">{item.title}</h3>
+                                    <p className="text-foreground/70 text-sm leading-relaxed">{item.desc}</p>
                                 </div>
-                                <h3 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h3>
-                                <p className="text-slate-600 text-sm">{item.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -124,8 +141,8 @@ export default function Services() {
             <div className="container mx-auto px-4 py-20">
                 <div className="max-w-4xl mx-auto">
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl font-bold text-slate-900 mb-4">Why Choose ABCDESIGN</h2>
-                        <p className="text-slate-600">Enterprise-grade solutions backed by expertise</p>
+                        <h2 className="text-3xl font-bold text-foreground mb-4">Why Choose ABCDESIGN</h2>
+                        <p className="text-foreground/70">Enterprise-grade solutions backed by expertise</p>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {[
@@ -136,11 +153,11 @@ export default function Services() {
                             { title: "Data-Driven Approach", desc: "Every decision backed by analytics and measurable KPIs" },
                             { title: "Cutting-Edge Technology", desc: "Latest tools and frameworks for maximum performance" }
                         ].map((benefit, i) => (
-                            <Card key={i} className="border border-slate-200 bg-white shadow-sm">
+                            <Card key={i} className="border-2 border-brand-neutral-light bg-white shadow-sm hover:shadow-lg hover:border-brand-accent-blue/30 transition-all duration-300">
                                 <CardContent className="pt-6">
-                                    <CheckCircle className="h-8 w-8 text-primary mb-3" />
-                                    <h3 className="text-lg font-semibold text-slate-900 mb-2">{benefit.title}</h3>
-                                    <p className="text-slate-600 text-sm">{benefit.desc}</p>
+                                    <CheckCircle className="h-8 w-8 text-brand-blue mb-3" />
+                                    <h3 className="text-lg font-semibold text-foreground mb-2">{benefit.title}</h3>
+                                    <p className="text-foreground/70 text-sm">{benefit.desc}</p>
                                 </CardContent>
                             </Card>
                         ))}
@@ -150,17 +167,17 @@ export default function Services() {
 
             {/* CTA Section */}
             <div className="container mx-auto px-4 py-16">
-                <Card className="bg-deep text-white border-none">
+                <Card className="bg-brand-blue text-white border-none shadow-2xl">
                     <CardContent className="pt-12 pb-12 text-center">
                         <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
-                        <p className="text-white/80 mb-8 max-w-2xl mx-auto">
+                        <p className="text-white/90 mb-8 max-w-2xl mx-auto">
                             Let's discuss how our services can help you achieve your business goals.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Button asChild size="lg" className="bg-white text-deep hover:bg-white/90">
+                            <Button asChild size="lg" className="bg-white text-brand-blue hover:bg-white/90 transition-all duration-300">
                                 <Link to="/contact">Contact Us</Link>
                             </Button>
-                            <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-deep">
+                            <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-brand-blue transition-all duration-300">
                                 <Link to="/work">View Case Studies</Link>
                             </Button>
                         </div>
