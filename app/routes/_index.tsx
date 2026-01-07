@@ -157,6 +157,195 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Placeholder Section - Alternating Layout */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 leading-tight">
+              Section <span className="text-primary">Title</span>
+            </h2>
+            <p className="text-lg text-foreground/70">Placeholder subtitle text goes here</p>
+          </div>
+
+          <div className="space-y-24">
+            {/* Item 1 - Image Left, Text Right */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="relative group">
+                <div className="absolute inset-0 bg-brand-blue/10 rounded-2xl transform rotate-3 group-hover:rotate-6 transition-transform duration-300" />
+                <div className="relative rounded-2xl shadow-xl w-full h-[400px] bg-gray-200 flex items-center justify-center">
+                  <span className="text-gray-400 text-xl font-semibold">Image Placeholder</span>
+                </div>
+              </div>
+              <div className="space-y-6">
+                <div className="inline-block px-4 py-2 bg-brand-blue/10 text-brand-blue rounded-full text-sm font-semibold">
+                  Category Tag
+                </div>
+                <h3 className="text-3xl md:text-4xl font-bold text-foreground leading-tight">
+                  Headline Text Goes Here
+                </h3>
+                <p className="text-lg text-foreground/70 leading-relaxed">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                </p>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
+                    <span className="text-foreground/70">Bullet point one placeholder text</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
+                    <span className="text-foreground/70">Bullet point two placeholder text</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
+                    <span className="text-foreground/70">Bullet point three placeholder text</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Item 2 - Text Left, Image Right */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="space-y-6 lg:order-1 order-2">
+                <div className="inline-block px-4 py-2 bg-brand-blue/10 text-brand-blue rounded-full text-sm font-semibold">
+                  Category Tag
+                </div>
+                <h3 className="text-3xl md:text-4xl font-bold text-foreground leading-tight">
+                  Headline Text Goes Here
+                </h3>
+                <p className="text-lg text-foreground/70 leading-relaxed">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                </p>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
+                    <span className="text-foreground/70">Bullet point one placeholder text</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
+                    <span className="text-foreground/70">Bullet point two placeholder text</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
+                    <span className="text-foreground/70">Bullet point three placeholder text</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="relative group lg:order-2 order-1">
+                <div className="absolute inset-0 bg-brand-blue/10 rounded-2xl transform -rotate-3 group-hover:-rotate-6 transition-transform duration-300" />
+                <div className="relative rounded-2xl shadow-xl w-full h-[400px] bg-gray-200 flex items-center justify-center">
+                  <span className="text-gray-400 text-xl font-semibold">Image Placeholder</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Item 3 - Image Left, Text Right */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="relative group">
+                <div className="absolute inset-0 bg-brand-blue/10 rounded-2xl transform rotate-3 group-hover:rotate-6 transition-transform duration-300" />
+                <div className="relative rounded-2xl shadow-xl w-full h-[400px] bg-gray-200 flex items-center justify-center">
+                  <span className="text-gray-400 text-xl font-semibold">Image Placeholder</span>
+                </div>
+              </div>
+              <div className="space-y-6">
+                <div className="inline-block px-4 py-2 bg-brand-blue/10 text-brand-blue rounded-full text-sm font-semibold">
+                  Category Tag
+                </div>
+                <h3 className="text-3xl md:text-4xl font-bold text-foreground leading-tight">
+                  Headline Text Goes Here
+                </h3>
+                <p className="text-lg text-foreground/70 leading-relaxed">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                </p>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
+                    <span className="text-foreground/70">Bullet point one placeholder text</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
+                    <span className="text-foreground/70">Bullet point two placeholder text</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
+                    <span className="text-foreground/70">Bullet point three placeholder text</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Item 4 - Text Left, Image Right */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="space-y-6 lg:order-1 order-2">
+                <div className="inline-block px-4 py-2 bg-brand-blue/10 text-brand-blue rounded-full text-sm font-semibold">
+                  Category Tag
+                </div>
+                <h3 className="text-3xl md:text-4xl font-bold text-foreground leading-tight">
+                  Headline Text Goes Here
+                </h3>
+                <p className="text-lg text-foreground/70 leading-relaxed">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                </p>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
+                    <span className="text-foreground/70">Bullet point one placeholder text</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
+                    <span className="text-foreground/70">Bullet point two placeholder text</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
+                    <span className="text-foreground/70">Bullet point three placeholder text</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="relative group lg:order-2 order-1">
+                <div className="absolute inset-0 bg-brand-blue/10 rounded-2xl transform -rotate-3 group-hover:-rotate-6 transition-transform duration-300" />
+                <div className="relative rounded-2xl shadow-xl w-full h-[400px] bg-gray-200 flex items-center justify-center">
+                  <span className="text-gray-400 text-xl font-semibold">Image Placeholder</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Item 5 - Image Left, Text Right */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="relative group">
+                <div className="absolute inset-0 bg-brand-blue/10 rounded-2xl transform rotate-3 group-hover:rotate-6 transition-transform duration-300" />
+                <div className="relative rounded-2xl shadow-xl w-full h-[400px] bg-gray-200 flex items-center justify-center">
+                  <span className="text-gray-400 text-xl font-semibold">Image Placeholder</span>
+                </div>
+              </div>
+              <div className="space-y-6">
+                <div className="inline-block px-4 py-2 bg-brand-blue/10 text-brand-blue rounded-full text-sm font-semibold">
+                  Category Tag
+                </div>
+                <h3 className="text-3xl md:text-4xl font-bold text-foreground leading-tight">
+                  Headline Text Goes Here
+                </h3>
+                <p className="text-lg text-foreground/70 leading-relaxed">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                </p>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
+                    <span className="text-foreground/70">Bullet point one placeholder text</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
+                    <span className="text-foreground/70">Bullet point two placeholder text</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
+                    <span className="text-foreground/70">Bullet point three placeholder text</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Featured Services */}
       <section className="py-24 bg-white relative overflow-hidden">
         <div className="absolute inset-0 bg-tata-silver/5" />
@@ -219,9 +408,9 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { name: "Sarah Chen", role: "CTO, Global Finance Corp", quote: "ABCDESIGN transformed our digital infrastructure. Their enterprise-level expertise is unmatched." },
-              { name: "Michael Rodriguez", role: "VP Marketing, TechStream", quote: "The ROI we've seen from their digital marketing campaigns has exceeded all expectations." },
-              { name: "Emily Watson", role: "CEO, Retail Giants Ltd", quote: "Professional, strategic, and results-driven. They're true partners in our growth journey." }
+              { name: "Sarah Chen", role: "CTO, Global Finance Corp", quote: "ABCDESIGN transformed our digital infrastructure. Their enterprise-level expertise is unmatched.", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop" },
+              { name: "Michael Rodriguez", role: "VP Marketing, TechStream", quote: "The ROI we've seen from their digital marketing campaigns has exceeded all expectations.", image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop" },
+              { name: "Emily Watson", role: "CEO, Retail Giants Ltd", quote: "Professional, strategic, and results-driven. They're true partners in our growth journey.", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop" }
             ].map((testimonial, i) => (
               <Card 
                 key={i} 
@@ -230,9 +419,11 @@ export default function Home() {
                 <CardContent className="pt-8 pb-8 relative">
                   <div className="absolute top-6 right-6 text-6xl text-white/10 font-serif">"</div>
                   <div className="flex items-center mb-6 relative z-10">
-                    <div className="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center text-white font-bold text-lg border border-white/30">
-                      {testimonial.name.split(' ').map(n => n[0]).join('')}
-                    </div>
+                    <img 
+                      src={testimonial.image} 
+                      alt={testimonial.name}
+                      className="w-14 h-14 rounded-full object-cover border-2 border-white/30"
+                    />
                     <div className="ml-4">
                       <div className="font-bold text-white text-lg">{testimonial.name}</div>
                       <div className="text-sm text-white/70">{testimonial.role}</div>

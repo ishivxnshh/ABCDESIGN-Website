@@ -36,7 +36,7 @@ export default function About() {
                         </p>
                     </div>
                     <div className="bg-slate-100/50 rounded-lg h-96 flex items-center justify-center border border-slate-200 overflow-hidden">
-                        <img src="/team-illustration.svg" alt="ABCDESIGN Team" className="w-full h-full object-cover" />
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop" alt="ABCDESIGN Team" className="w-full h-full object-cover rounded-lg" />
                     </div>
                 </div>
 

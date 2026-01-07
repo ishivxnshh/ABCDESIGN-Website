@@ -1,7 +1,7 @@
 import type { MetaFunction } from "@remix-run/node";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "~/components/ui/card";
 import { Button } from "~/components/ui/button";
-import { Link } from "@remix-run/react";
+import { Link, useNavigate } from "@remix-run/react";
 import { BarChart, Globe, Megaphone, PenTool, Search, CheckCircle, ArrowRight } from "lucide-react";
 
 export const meta: MetaFunction = () => {
@@ -9,13 +9,14 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Services() {
+    const navigate = useNavigate();
     const services = [
         { 
             icon: Megaphone, 
             title: "Digital Marketing", 
             desc: "Comprehensive strategies to reach your target audience and drive conversions.", 
             items: ["Social Media Marketing", "Email Campaigns", "PPC Advertising", "Content Marketing", "Marketing Automation", "Influencer Partnerships"],
-            image: "/service-digital-marketing.svg",
+            image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
             link: "/services/digital-marketing"
         },
         { 
@@ -23,7 +24,7 @@ export default function Services() {
             title: "SEO & Performance", 
             desc: "Optimize your digital presence to dominate search results and improve ROI.", 
             items: ["Technical SEO", "Content Strategy", "Performance Audits", "Link Building", "Local SEO", "Analytics & Reporting"],
-            image: "/service-web-dev.svg",
+            image: "https://images.unsplash.com/photo-1432888622747-4eb9a8f2c293?w=600&h=400&fit=crop",
             link: "/services/seo-performance"
         },
         { 
@@ -31,7 +32,7 @@ export default function Services() {
             title: "Branding & Creative", 
             desc: "Build a brand identity that resonates and endures.", 
             items: ["Logo Design", "Brand Guidelines", "Visual Identity", "Marketing Collateral", "Brand Strategy", "Creative Direction"],
-            image: "/hero-graphic.svg",
+            image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=400&fit=crop",
             link: "/services/branding-creative"
         },
         { 
@@ -39,7 +40,7 @@ export default function Services() {
             title: "Web Development", 
             desc: "Scalable, secure, and high-performance websites built for enterprise.", 
             items: ["Custom Web Apps", "CMS Implementation", "E-commerce Solutions", "Progressive Web Apps", "API Development", "Cloud Infrastructure"],
-            image: "/service-web-dev.svg",
+            image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=400&fit=crop",
             link: "/services/web-development"
         },
         { 
@@ -47,7 +48,7 @@ export default function Services() {
             title: "Growth Consulting", 
             desc: "Data-backed insights to unlock new revenue streams.", 
             items: ["Market Analysis", "Process Optimization", "Digital Transformation", "CRO Strategy", "Business Intelligence", "KPI Tracking"],
-            image: "/hero-graphic.svg",
+            image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
             link: "/services/growth-consulting"
         },
     ];
@@ -99,11 +100,15 @@ export default function Services() {
                                 </ul>
                             </CardContent>
                             <CardFooter className="pt-6">
-                                <Button variant="ghost" className="w-full text-brand-blue hover:text-white hover:bg-brand-blue group/btn transition-all duration-300" asChild>
-                                    <Link to={service.link} className="inline-flex items-center gap-2">
+                                <Button 
+                                    variant="ghost" 
+                                    className="w-full text-brand-blue hover:text-white hover:bg-brand-blue group/btn transition-all duration-300"
+                                    onClick={() => navigate(service.link)}
+                                >
+                                    <span className="inline-flex items-center gap-2">
                                         Learn More 
                                         <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
-                                    </Link>
+                                    </span>
                                 </Button>
                             </CardFooter>
                         </Card>

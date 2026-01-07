@@ -18,7 +18,7 @@ export default function Work() {
             impact: "40% increase in operational efficiency",
             metrics: ["40% Efficiency", "$2M Cost Savings", "6 Month Timeline"],
             desc: "Partnered with a leading financial institution to modernize their legacy systems and implement agile workflows.",
-            image: "/project-1.svg",
+            image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
             challenges: "Legacy infrastructure causing bottlenecks, disparate systems preventing data integration, manual processes reducing productivity.",
             solution: "Implemented a comprehensive digital transformation roadmap including cloud migration, API integration, and process automation.",
             results: ["Reduced processing time by 40%", "Eliminated $2M in annual operational costs", "Improved customer satisfaction by 35%"]
@@ -30,7 +30,7 @@ export default function Work() {
             impact: "200% increase in lead generation",
             metrics: ["200% Leads", "3x Traffic", "Award Winning Design"],
             desc: "A complete brand refresh and high-performance website deployment for a B2B SaaS provider.",
-            image: "/project-2.svg",
+            image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
             challenges: "Outdated brand identity, low website conversion rates, poor mobile experience.",
             solution: "Complete rebrand with modern visual identity, rebuilt website on scalable architecture, implemented conversion optimization strategies.",
             results: ["Tripled organic traffic within 6 months", "Increased conversion rate from 1.2% to 4.8%", "Won 2 industry design awards"]
@@ -42,7 +42,7 @@ export default function Work() {
             impact: "150% growth in organic revenue",
             metrics: ["150% Revenue", "#1 Rankings", "Global Reach"],
             desc: "Implemented a comprehensive technical SEO strategy for a multinational retailer.",
-            image: "/project-3.svg",
+            image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop",
             challenges: "Poor search visibility, technical SEO issues, international expansion needs.",
             solution: "Technical SEO overhaul, content strategy, international SEO implementation, and performance optimization.",
             results: ["Achieved #1 rankings for 200+ target keywords", "Expanded to 15 new international markets", "Increased organic revenue by 150%"]
@@ -54,7 +54,7 @@ export default function Work() {
             impact: "100% HIPAA compliant system",
             metrics: ["100% Compliance", "50K Users", "99.9% Uptime"],
             desc: "Built a secure, scalable telemedicine platform serving thousands of patients daily.",
-            image: "/project-1.svg",
+            image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=600&fit=crop",
             challenges: "HIPAA compliance requirements, real-time video communication, scalability for rapid growth.",
             solution: "Enterprise-grade platform with end-to-end encryption, HIPAA-compliant infrastructure, and real-time features.",
             results: ["Achieved full HIPAA compliance certification", "Scaled to 50,000+ active users", "Maintained 99.9% uptime"]
@@ -66,7 +66,7 @@ export default function Work() {
             impact: "30% reduction in downtime",
             metrics: ["30% Less Downtime", "20% Cost Reduction", "Real-time Monitoring"],
             desc: "Integrated IoT sensors and predictive analytics for a manufacturing facility.",
-            image: "/project-2.svg",
+            image: "https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?w=800&h=600&fit=crop",
             challenges: "Frequent equipment failures, lack of data visibility, reactive maintenance approach.",
             solution: "Deployed IoT sensor network, built predictive analytics dashboard, implemented automated alerts.",
             results: ["Reduced unplanned downtime by 30%", "Cut maintenance costs by 20%", "Improved overall equipment effectiveness by 25%"]

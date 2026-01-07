@@ -28,10 +28,12 @@ export default function DigitalMarketing() {
     ];
 
     return (
-        <div className="bg-slate-50 min-h-screen pb-20">
+        <div className="bg-white min-h-screen pb-20">
             {/* Hero Section */}
-            <div className="bg-primary text-white py-20">
-                <div className="container mx-auto px-4">
+            <div className="bg-brand-blue text-white py-20 relative overflow-hidden">
+                <div className="absolute inset-0 bg-brand-dark-navy/20" />
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+                <div className="container mx-auto px-4 relative z-10">
                     <Button variant="ghost" className="text-white hover:bg-white/10 mb-8" asChild>
                         <Link to="/services">
                             <ArrowLeft className="mr-2 h-4 w-4" /> Back to Services
@@ -49,16 +51,16 @@ export default function DigitalMarketing() {
 
             {/* Features Grid */}
             <div className="container mx-auto px-4 py-16">
-                <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">What We Offer</h2>
+                <h2 className="text-3xl font-bold text-foreground mb-12 text-center">What We Offer</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {features.map((feature, i) => (
-                        <Card key={i} className="border border-slate-200 shadow-sm hover:shadow-md transition-shadow bg-white">
+                        <Card key={i} className="border-2 border-brand-neutral-light shadow-sm hover:shadow-xl hover:border-brand-accent-blue/30 transition-all duration-300 bg-white">
                             <CardHeader>
-                                <feature.icon className="h-12 w-12 text-primary mb-4" />
-                                <CardTitle className="text-xl text-slate-900">{feature.title}</CardTitle>
+                                <feature.icon className="h-12 w-12 text-brand-blue mb-4" />
+                                <CardTitle className="text-xl text-foreground">{feature.title}</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-slate-600">{feature.desc}</p>
+                                <p className="text-foreground/70">{feature.desc}</p>
                             </CardContent>
                         </Card>
                     ))}
@@ -66,14 +68,14 @@ export default function DigitalMarketing() {
             </div>
 
             {/* Benefits Section */}
-            <div className="bg-white py-16 border-y border-slate-200">
+            <div className="bg-brand-neutral-light/30 py-16 border-y border-brand-neutral-light">
                 <div className="container mx-auto px-4">
-                    <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">Why Choose Our Digital Marketing Services</h2>
+                    <h2 className="text-3xl font-bold text-foreground mb-12 text-center">Why Choose Our Digital Marketing Services</h2>
                     <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
                         {benefits.map((benefit, i) => (
                             <div key={i} className="flex items-start gap-3">
-                                <CheckCircle className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
-                                <p className="text-slate-700">{benefit}</p>
+                                <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
+                                <p className="text-foreground/70">{benefit}</p>
                             </div>
                         ))}
                     </div>
@@ -82,7 +84,7 @@ export default function DigitalMarketing() {
 
             {/* Process Section */}
             <div className="container mx-auto px-4 py-16">
-                <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">Our Approach</h2>
+                <h2 className="text-3xl font-bold text-foreground mb-12 text-center">Our Approach</h2>
                 <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
                     {[
                         { step: "01", title: "Audience Research", desc: "Understanding your target market and their behavior" },
@@ -91,11 +93,11 @@ export default function DigitalMarketing() {
                         { step: "04", title: "Optimization", desc: "Continuous monitoring and performance improvement" }
                     ].map((item, i) => (
                         <div key={i} className="text-center">
-                            <div className="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+                            <div className="w-16 h-16 rounded-full bg-brand-blue text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                                 {item.step}
                             </div>
-                            <h3 className="text-lg font-bold text-slate-900 mb-2">{item.title}</h3>
-                            <p className="text-slate-600 text-sm">{item.desc}</p>
+                            <h3 className="text-lg font-bold text-foreground mb-2">{item.title}</h3>
+                            <p className="text-foreground/70 text-sm">{item.desc}</p>
                         </div>
                     ))}
                 </div>
@@ -103,13 +105,13 @@ export default function DigitalMarketing() {
 
             {/* CTA Section */}
             <div className="container mx-auto px-4 py-16">
-                <Card className="bg-primary text-white border-none">
+                <Card className="bg-brand-blue text-white border-none shadow-xl">
                     <CardContent className="pt-12 pb-12 text-center">
                         <h2 className="text-3xl font-bold mb-4">Ready to Boost Your Digital Presence?</h2>
-                        <p className="text-white/80 mb-8 max-w-2xl mx-auto">
+                        <p className="text-white/90 mb-8 max-w-2xl mx-auto">
                             Let's create a digital marketing strategy that drives real results for your business.
                         </p>
-                        <Button asChild size="lg" className="bg-white text-primary hover:bg-tata-light-grey">
+                        <Button asChild size="lg" className="bg-white text-brand-blue hover:bg-white/90">
                             <Link to="/contact">Get Started Today</Link>
                         </Button>
                     </CardContent>
