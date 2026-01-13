@@ -30,18 +30,20 @@ export default function WebDevelopment() {
     return (
         <div className="bg-slate-50 min-h-screen pb-20">
             {/* Hero Section */}
-            <div className="bg-primary text-white py-20">
-                <div className="container mx-auto px-4">
-                    <Button variant="ghost" className="text-white hover:bg-white/10 mb-8" asChild>
+            <div className="relative bg-brand-blue py-12 sm:py-16 md:py-20 lg:py-24 text-white overflow-hidden">
+                <div className="absolute inset-0 bg-brand-dark-navy/20" />
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+                <div className="container mx-auto px-4 relative z-10">
+                    <Button variant="ghost" className="text-white hover:bg-white/10 mb-8 pl-0 hover:pl-2 transition-all" asChild>
                         <Link to="/services">
                             <ArrowLeft className="mr-2 h-4 w-4" /> Back to Services
                         </Link>
                     </Button>
                     <div className="flex items-center gap-4 mb-6">
-                        <Globe className="h-16 w-16" />
-                        <h1 className="text-5xl font-bold">Web Development</h1>
+                        <Globe className="h-12 w-12 sm:h-16 sm:w-16" />
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">Web Development</h1>
                     </div>
-                    <p className="text-xl text-white/90 max-w-3xl">
+                    <p className="text-white/90 text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed">
                         Scalable, secure, and high-performance websites built for enterprise success.
                     </p>
                 </div>

@@ -9,13 +9,14 @@ export const meta: MetaFunction = () => {
 export default function About() {
     return (
         <div className="bg-white">
-            <div className="relative bg-gradient-to-br from-tata-light-grey via-white to-tata-light-grey py-12 sm:py-16 md:py-20 lg:py-28 border-b border-tata-silver/50 overflow-hidden">
-                <div className="absolute inset-0 bg-tata-silver/10" />
+            <div className="relative bg-brand-blue py-12 sm:py-16 md:py-20 lg:py-24 text-white overflow-hidden">
+                <div className="absolute inset-0 bg-brand-dark-navy/20" />
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
                 <div className="container mx-auto px-4 relative z-10">
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-tata-dark-grey mb-4 sm:mb-6 text-center leading-tight">
-                        About <span className="text-primary">ABCDESIGN</span>
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
+                        About ABCDESIGN
                     </h1>
-                    <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-foreground/70 max-w-3xl mx-auto text-center leading-relaxed">
+                    <p className="text-white/90 text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed">
                         A strategic partner for enterprises seeking digital transformation and sustainable growth.
                     </p>
                 </div>
@@ -46,7 +47,7 @@ export default function About() {
                     <div className="max-w-4xl mx-auto relative">
                         {/* Timeline line */}
                         <div className="absolute left-10 top-10 bottom-10 w-0.5 bg-gradient-to-b from-subheading via-primary to-subheading hidden md:block" />
-                        
+
                         <div className="space-y-8 sm:space-y-10 md:space-y-12">
                             {[
                                 { year: "2014", title: "Founded", desc: "Started with a vision to bridge the gap between technology and business strategy" },

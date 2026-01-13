@@ -27,12 +27,13 @@ export default function Contact() {
     return (
         <div className="bg-white min-h-screen">
             {/* Hero Section */}
-            <div className="relative bg-brand-blue text-white py-12 sm:py-16 md:py-20 overflow-hidden">
+            {/* Hero Section */}
+            <div className="relative bg-brand-blue py-12 sm:py-16 md:py-20 lg:py-24 text-white overflow-hidden">
                 <div className="absolute inset-0 bg-brand-dark-navy/20" />
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
-                <div className="container mx-auto px-4 text-center relative z-10">
+                <div className="container mx-auto px-4 relative z-10">
                     <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">Get in Touch</h1>
-                    <p className="text-white/90 text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-white/90 text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed">
                         Ready to start your project? We'd love to hear from you. Fill out the form or reach out through any of our contact channels.
                     </p>
                 </div>
@@ -80,9 +81,9 @@ export default function Contact() {
 
                                         <div className="space-y-2">
                                             <Label htmlFor="service">Service Interested In</Label>
-                                            <select 
-                                                id="service" 
-                                                name="service" 
+                                            <select
+                                                id="service"
+                                                name="service"
                                                 className="flex h-11 w-full rounded-lg border-2 border-input bg-white px-4 py-2 text-base shadow-sm transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary hover:border-primary/50 md:text-sm"
                                             >
                                                 <option value="">Select a service</option>
@@ -97,19 +98,19 @@ export default function Contact() {
 
                                         <div className="space-y-2">
                                             <Label htmlFor="message">Tell Us About Your Project *</Label>
-                                            <Textarea 
-                                                id="message" 
-                                                name="message" 
-                                                placeholder="Share your goals, challenges, and what you're looking to achieve..." 
-                                                className="min-h-[150px]" 
-                                                required 
+                                            <Textarea
+                                                id="message"
+                                                name="message"
+                                                placeholder="Share your goals, challenges, and what you're looking to achieve..."
+                                                className="min-h-[150px]"
+                                                required
                                             />
                                         </div>
 
-                                        <Button 
-                                            type="submit" 
-                                            className="w-full shadow-lg hover:shadow-xl" 
-                                            size="lg" 
+                                        <Button
+                                            type="submit"
+                                            className="w-full shadow-lg hover:shadow-xl"
+                                            size="lg"
                                             disabled={isSubmitting}
                                         >
                                             {isSubmitting ? (
@@ -147,7 +148,7 @@ export default function Contact() {
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div>
                                         <div className="flex items-start gap-3 mb-2">
                                             <MapPin className="h-5 w-5 text-brand-blue flex-shrink-0 mt-1" />
@@ -245,7 +246,7 @@ export default function Contact() {
                     <div className="max-w-4xl mx-auto">
                         <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-3 sm:mb-4 text-center">Frequently Asked Questions</h2>
                         <p className="text-foreground/70 mb-8 sm:mb-10 md:mb-12 text-center text-base sm:text-lg">Quick answers to common questions</p>
-                        
+
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                             <Card className="border-2 border-brand-neutral-light shadow-sm hover:shadow-md transition-shadow">
                                 <CardContent className="pt-4 sm:pt-6">
