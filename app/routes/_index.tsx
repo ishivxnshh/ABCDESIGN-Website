@@ -5,6 +5,8 @@ import { ArrowRight, CheckCircle, TrendingUp, Users, Shield, Zap, Award, Globe, 
 import { Card, CardContent } from "~/components/ui/card";
 import { useEffect, useState } from "react";
 import { cn } from "~/lib/utils";
+import Antigravity from "~/components/Antigravity";
+import Magnetic from "~/components/ui/Magnetic";
 
 export const meta: MetaFunction = () => {
   return [
@@ -24,18 +26,33 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
       <section className="relative min-h-[500px] sm:min-h-[600px] md:h-[85vh] bg-brand-blue overflow-hidden flex items-center py-12 sm:py-0">
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 right-0 w-[70%] h-full bg-brand-dark-navy/20 transform -skew-x-12 translate-x-1/4 pointer-events-none" />
+
+        {/* Antigravity 3D Background */}
+        <div className="absolute inset-0 z-0">
+          <Antigravity
+            count={150}
+            magnetRadius={15}
+            ringRadius={12}
+            color="#2F80ED" // Brand Accent Blue
+            particleSize={3}
+          />
+        </div>
+
+        {/* Restore Original Background Elements (Square/Skew Design) */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+          <div className="absolute top-0 right-0 w-[70%] h-full bg-brand-dark-navy/20 transform -skew-x-12 translate-x-1/4" />
           <div className="absolute bottom-0 left-0 w-[50%] h-[50%] bg-brand-dark-navy/10 rounded-full blur-3xl" />
           <div className="absolute top-1/4 right-1/4 w-32 h-32 bg-brand-dark-navy/10 rounded-full blur-2xl animate-pulse" style={{ animationDuration: '4s' }} />
           <div className="absolute bottom-1/3 left-1/3 w-24 h-24 bg-brand-dark-navy/10 rounded-full blur-2xl animate-pulse" style={{ animationDuration: '6s', animationDelay: '1s' }} />
         </div>
 
         {/* Grid Pattern Overlay */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]" />
+        <div className="absolute inset-0 z-[1] bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)] pointer-events-none" />
 
-        <div className="container relative z-10 mx-auto px-4">
+        {/* Gradient Overlay for Text Readability */}
+        <div className="absolute inset-0 z-[1] bg-gradient-to-r from-brand-blue/90 via-brand-blue/70 to-transparent pointer-events-none" />
+
+        <div className="container relative z-10 mx-auto px-4 pointer-events-none">
           <div className="max-w-4xl">
             <div className={cn("transition-all duration-1000 delay-100", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/30 mb-6 text-white/90 text-sm font-medium">
@@ -60,10 +77,10 @@ export default function Home() {
             </p>
 
             {/* CTA Buttons */}
-            <div className={cn("flex flex-col sm:flex-row items-stretch sm:items-start gap-3 sm:gap-4 transition-all duration-1000 delay-400", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
-              <Button 
-                asChild 
-                size="lg" 
+            <div className={cn("flex flex-col sm:flex-row items-stretch sm:items-start gap-3 sm:gap-4 transition-all duration-1000 delay-400 pointer-events-auto", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
+              <Button
+                asChild
+                size="lg"
                 className="h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base bg-white text-brand-blue hover:bg-white/90 rounded-lg transition-all duration-300 group"
               >
                 <Link to="/contact" className="inline-flex items-center gap-2">
@@ -71,16 +88,18 @@ export default function Home() {
                   <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
-              <Button 
-                asChild 
-                size="lg" 
-                className="h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base bg-transparent text-white border-2 border-white hover:bg-white hover:text-brand-blue rounded-lg transition-all duration-300 group"
-              >
-                <Link to="/services" className="inline-flex items-center gap-2">
-                  Explore Services
-                  <Sparkles className="h-5 w-5 transition-transform group-hover:rotate-12" />
-                </Link>
-              </Button>
+              <Magnetic strength={0.3}>
+                <Button
+                  asChild
+                  size="lg"
+                  className="h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base bg-transparent text-white border-2 border-white hover:bg-white hover:text-brand-blue rounded-lg transition-all duration-300 group shadow-[0_0_15px_rgba(255,255,255,0.3)] hover:shadow-[0_0_25px_rgba(255,255,255,0.6)]"
+                >
+                  <Link to="/services" className="inline-flex items-center gap-2">
+                    Explore Services
+                    <Sparkles className="h-5 w-5 transition-transform group-hover:rotate-12" />
+                  </Link>
+                </Button>
+              </Magnetic>
             </div>
           </div>
         </div>
@@ -103,7 +122,7 @@ export default function Home() {
               { number: "98%", label: "Client Retention", delay: "100ms" },
               { number: "10+", label: "Years of Excellence", delay: "200ms" }
             ].map((stat, idx) => (
-              <div 
+              <div
                 key={idx}
                 className="group relative p-6 sm:p-8 text-center rounded-xl bg-white border-2 border-tata-silver/50 hover:border-primary shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 overflow-hidden"
                 style={{ animationDelay: stat.delay }}
@@ -136,8 +155,8 @@ export default function Home() {
               { icon: CheckCircle, title: "Enterprise Standards", desc: "Security, scalability, and compliance are built into our DNA." },
               { icon: Users, title: "End-to-End Execution", desc: "From concept to deployment, we handle the entire lifecycle." }
             ].map((item, i) => (
-              <Card 
-                key={i} 
+              <Card
+                key={i}
                 className="group border-2 border-tata-silver/50 shadow-sm bg-white hover:shadow-2xl hover:border-primary transition-all duration-500 hover:-translate-y-2 overflow-hidden relative"
               >
                 <div className="absolute inset-0 bg-tata-silver/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -363,8 +382,8 @@ export default function Home() {
               { icon: Award, title: "Branding", desc: "Identity systems that stand the test of time" },
               { icon: Zap, title: "Growth Consulting", desc: "Data-backed insights for business transformation" }
             ].map((service, i) => (
-              <Card 
-                key={i} 
+              <Card
+                key={i}
                 className="group border-2 border-tata-silver/50 shadow-sm hover:shadow-xl hover:border-primary transition-all duration-500 hover:-translate-y-3 overflow-hidden relative bg-white"
               >
                 <div className="absolute inset-0 bg-tata-light-grey opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -382,14 +401,14 @@ export default function Home() {
             ))}
           </div>
           <div className="text-center mt-16">
-            <Button 
-              asChild 
-              size="lg" 
-              variant="outline" 
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
               className="border-2 border-primary text-primary hover:bg-primary hover:text-white shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group"
             >
               <Link to="/services" className="inline-flex items-center gap-2">
-                View All Services 
+                View All Services
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
@@ -400,7 +419,7 @@ export default function Home() {
       {/* Client Testimonials */}
       <section className="py-12 sm:py-16 md:py-24 bg-brand-blue text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-white/5" />
-        
+
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 md:mb-16">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">What Our Clients Say</h2>
@@ -412,15 +431,15 @@ export default function Home() {
               { name: "Michael Rodriguez", role: "VP Marketing, TechStream", quote: "The ROI we've seen from their digital marketing campaigns has exceeded all expectations.", image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop" },
               { name: "Emily Watson", role: "CEO, Retail Giants Ltd", quote: "Professional, strategic, and results-driven. They're true partners in our growth journey.", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop" }
             ].map((testimonial, i) => (
-              <Card 
-                key={i} 
+              <Card
+                key={i}
                 className="group bg-brand-soft-blue border border-brand-accent-blue/15 hover:border-brand-accent-blue/30 transition-all duration-500 overflow-hidden"
               >
                 <CardContent className="pt-6 sm:pt-8 pb-6 sm:pb-8 relative">
                   <div className="absolute top-4 sm:top-6 right-4 sm:right-6 text-5xl sm:text-6xl text-white/10 font-serif">"</div>
                   <div className="flex items-center mb-4 sm:mb-6 relative z-10">
-                    <img 
-                      src={testimonial.image} 
+                    <img
+                      src={testimonial.image}
                       alt={testimonial.name}
                       className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover border-2 border-white/30"
                     />
@@ -451,8 +470,8 @@ export default function Home() {
               { name: "AWS Certified", subtitle: "Solutions" },
               { name: "Microsoft Partner", subtitle: "Gold" }
             ].map((badge, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className="group text-center p-4 sm:p-6 rounded-xl bg-white border-2 border-tata-silver/50 hover:border-primary hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
               >
                 <div className="relative inline-block mb-3 sm:mb-4">
@@ -470,7 +489,7 @@ export default function Home() {
       <section className="relative py-12 sm:py-16 md:py-24 bg-brand-blue text-white overflow-hidden">
         <div className="absolute inset-0 bg-brand-dark-navy/20" />
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
-        
+
         <div className="container mx-auto px-4 text-center relative z-10">
           <div className="inline-flex p-3 sm:p-4 rounded-2xl bg-white/10 backdrop-blur-sm mb-4 sm:mb-6 animate-pulse" style={{ animationDuration: '3s' }}>
             <Users className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 text-white" />
@@ -482,9 +501,9 @@ export default function Home() {
             Join hundreds of enterprises that trust ABCDESIGN for their digital success.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-            <Button 
-              asChild 
-              size="lg" 
+            <Button
+              asChild
+              size="lg"
               className="h-12 sm:h-14 px-6 sm:px-8 bg-white text-brand-blue hover:bg-white/90 transition-all duration-300 group"
             >
               <Link to="/contact" className="inline-flex items-center gap-2">
@@ -492,9 +511,9 @@ export default function Home() {
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
-            <Button 
-              asChild 
-              size="lg" 
+            <Button
+              asChild
+              size="lg"
               className="h-12 sm:h-14 px-6 sm:px-8 border-2 border-white text-white bg-transparent hover:bg-white hover:text-brand-blue transition-all duration-300"
             >
               <Link to="/work">View Our Work</Link>

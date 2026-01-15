@@ -24,21 +24,24 @@ export function Navbar() {
     ];
 
     return (
-        <nav 
-            className="sticky top-0 z-50 w-full border-b border-white/10 transition-all duration-300 bg-brand-dark-navy"
-            style={{
-                boxShadow: scrolled ? '0 2px 8px rgba(0, 0, 0, 0.1)' : 'none'
-            }}
+        <nav
+            className={cn(
+                "fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 border border-white/10",
+                isOpen
+                    ? "w-[95%] rounded-3xl bg-brand-dark-navy"
+                    : "w-[95%] rounded-full bg-brand-dark-navy/80 backdrop-blur-md",
+                scrolled ? "shadow-xl" : "shadow-lg"
+            )}
         >
-            <div className="container mx-auto px-4 flex h-16 items-center justify-between">
-                <Link 
-                    to="/" 
+            <div className="px-6 h-16 flex items-center justify-between md:gap-8">
+                <Link
+                    to="/"
                     className="flex items-center transition-transform duration-300 hover:scale-105 focus-ring rounded-md"
                 >
-                    <img 
-                        src="/logo.svg" 
-                        alt="ABCDESIGN" 
-                        className="h-6 w-auto brightness-0 invert" 
+                    <img
+                        src="/logo.svg"
+                        alt="ABCDESIGN"
+                        className="h-6 w-auto brightness-0 invert"
                     />
                 </Link>
 
@@ -50,27 +53,19 @@ export function Navbar() {
                             to={link.path}
                             className={({ isActive }) =>
                                 cn(
-                                    "relative px-4 py-2 text-sm font-medium transition-all duration-200 rounded-md group focus-ring",
-                                    isActive 
-                                        ? "text-white" 
+                                    "relative px-4 py-2 text-sm font-medium transition-all duration-200 rounded-full hover:bg-white/10 group focus-ring",
+                                    isActive
+                                        ? "text-white bg-white/10"
                                         : "text-white/80 hover:text-white"
                                 )
                             }
                         >
-                            {({ isActive }) => (
-                                <>
-                                    {link.name}
-                                    {isActive && (
-                                        <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-brand-accent-blue rounded-full" />
-                                    )}
-                                    <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-brand-accent-blue rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-                                </>
-                            )}
+                            {link.name}
                         </NavLink>
                     ))}
-                    <Button 
-                        asChild 
-                        className="ml-4 bg-white text-brand-blue hover:bg-white/90 transition-all duration-300"
+                    <Button
+                        asChild
+                        className="ml-4 rounded-full bg-white text-brand-blue hover:bg-brand-soft-blue hover:text-white transition-all duration-300"
                     >
                         <Link to="/contact">Contact Us</Link>
                     </Button>
@@ -78,9 +73,9 @@ export function Navbar() {
 
                 {/* Mobile Menu Toggle */}
                 <div className="md:hidden">
-                    <button 
-                        onClick={() => setIsOpen(!isOpen)} 
-                        className="p-2 text-white/90 hover:text-white rounded-md transition-colors focus-ring"
+                    <button
+                        onClick={() => setIsOpen(!isOpen)}
+                        className="p-2 text-white/90 hover:text-white rounded-full transition-colors focus-ring hover:bg-white/10"
                         aria-label="Toggle menu"
                     >
                         {isOpen ? (
@@ -93,50 +88,48 @@ export function Navbar() {
             </div>
 
             {/* Mobile Nav */}
-            <div 
+            <div
                 className={cn(
                     "md:hidden overflow-hidden transition-all duration-300 ease-in-out",
-                    isOpen 
-                        ? "max-h-96 opacity-100" 
+                    isOpen
+                        ? "max-h-96 opacity-100"
                         : "max-h-0 opacity-0"
                 )}
             >
-                <div className="border-t border-white/20 bg-brand-dark-navy px-4 py-4 shadow-lg">
-                    <div className="flex flex-col space-y-1">
-                        {navLinks.map((link, index) => (
-                            <NavLink
-                                key={link.path}
-                                to={link.path}
-                                className={({ isActive }) =>
-                                    cn(
-                                        "px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 focus-ring",
-                                        isActive
-                                            ? "text-white bg-white/20"
-                                            : "text-white/80 hover:text-white hover:bg-white/10"
-                                    )
-                                }
-                                onClick={() => setIsOpen(false)}
-                                style={{
-                                    animationDelay: `${index * 50}ms`,
-                                    animation: isOpen ? 'slideInLeft 0.3s ease-out forwards' : 'none'
-                                }}
-                            >
-                                {link.name}
-                            </NavLink>
-                        ))}
-                        <Button 
-                            asChild 
-                            className="w-full mt-4 bg-white text-brand-blue hover:bg-white/90"
+                <div className="px-4 pb-6 space-y-2">
+                    {navLinks.map((link, index) => (
+                        <NavLink
+                            key={link.path}
+                            to={link.path}
+                            className={({ isActive }) =>
+                                cn(
+                                    "block px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 focus-ring",
+                                    isActive
+                                        ? "text-white bg-white/20"
+                                        : "text-white/80 hover:text-white hover:bg-white/10"
+                                )
+                            }
+                            onClick={() => setIsOpen(false)}
                             style={{
-                                animationDelay: `${navLinks.length * 50}ms`,
+                                animationDelay: `${index * 50}ms`,
                                 animation: isOpen ? 'slideInLeft 0.3s ease-out forwards' : 'none'
                             }}
                         >
-                            <Link to="/contact" onClick={() => setIsOpen(false)}>
-                                Contact Us
-                            </Link>
-                        </Button>
-                    </div>
+                            {link.name}
+                        </NavLink>
+                    ))}
+                    <Button
+                        asChild
+                        className="w-full mt-4 rounded-xl bg-white text-brand-blue hover:bg-white/90"
+                        style={{
+                            animationDelay: `${navLinks.length * 50}ms`,
+                            animation: isOpen ? 'slideInLeft 0.3s ease-out forwards' : 'none'
+                        }}
+                    >
+                        <Link to="/contact" onClick={() => setIsOpen(false)}>
+                            Contact Us
+                        </Link>
+                    </Button>
                 </div>
             </div>
         </nav>

@@ -16,16 +16,19 @@
     "@radix-ui/react-label": "^2.1.8",
     "@radix-ui/react-separator": "^1.1.8",
     "@radix-ui/react-slot": "^1.2.4",
+    "@react-three/fiber": "^8.18.0",
     "@remix-run/node": "^2.15.5",
     "@remix-run/react": "^2.15.5",
     "@remix-run/serve": "^2.15.5",
+    "@types/three": "^0.182.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "isbot": "^5.1.31",
     "lucide-react": "^0.562.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "tailwind-merge": "^3.4.0"
+    "tailwind-merge": "^3.4.0",
+    "three": "^0.182.0"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.15.5",
