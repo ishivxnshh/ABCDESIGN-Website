@@ -3,7 +3,7 @@ import type { MetaFunction } from "@remix-run/node";
 import { Button } from "~/components/ui/button";
 import { ArrowRight, CheckCircle, TrendingUp, Users, Shield, Zap, Award, Globe, Target, Sparkles } from "lucide-react";
 import { Card, CardContent } from "~/components/ui/card";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { cn } from "~/lib/utils";
 import Antigravity from "~/components/Antigravity";
 import Magnetic from "~/components/ui/Magnetic";
@@ -17,16 +17,91 @@ export const meta: MetaFunction = () => {
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
+  const [currentSection, setCurrentSection] = useState(0);
+  const sectionsRef = useRef<HTMLElement[]>([]);
+  const isAnimatingRef = useRef(false);
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
+  // Scroll-jacking logic from carousel.html
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const sections = sectionsRef.current.filter(Boolean);
+    const maxIndex = sections.length - 1;
+    let exitBufferTop = 0;
+    let exitBufferBottom = 0;
+    const BUFFER_THRESHOLD = 50; // Increased for easier exit
+
+    const handleWheel = (e: WheelEvent) => {
+      if (isAnimatingRef.current || sections.length === 0) return;
+
+      const scrollingDown = e.deltaY > 0;
+      const scrollingUp = e.deltaY < 0;
+
+      // Check if we're in the snap zone
+      const rect = sections[currentSection]?.getBoundingClientRect();
+      const isInSnapZone = rect && Math.abs(rect.top) < 100;
+
+      // Scrolling Down
+      if (scrollingDown && currentSection < maxIndex) {
+        e.preventDefault();
+        isAnimatingRef.current = true;
+        const nextSection = currentSection + 1;
+        sections[nextSection]?.scrollIntoView({ behavior: 'smooth' });
+        setCurrentSection(nextSection);
+        exitBufferTop = 0;
+        exitBufferBottom = 0;
+        setTimeout(() => {
+          isAnimatingRef.current = false;
+        }, 1000);
+      }
+      // Scrolling Up
+      else if (scrollingUp && currentSection > 0) {
+        e.preventDefault();
+        isAnimatingRef.current = true;
+        const prevSection = currentSection - 1;
+        sections[prevSection]?.scrollIntoView({ behavior: 'smooth' });
+        setCurrentSection(prevSection);
+        exitBufferTop = 0;
+        exitBufferBottom = 0;
+        setTimeout(() => {
+          isAnimatingRef.current = false;
+        }, 1000);
+      }
+      // Exit resistance at bottom - allow exit to footer
+      else if (scrollingDown && currentSection === maxIndex) {
+        if (exitBufferBottom < BUFFER_THRESHOLD) {
+          e.preventDefault();
+          exitBufferBottom += Math.abs(e.deltaY);
+        }
+        // Allow scroll to footer after threshold
+      }
+      // Exit resistance at top
+      else if (scrollingUp && currentSection === 0) {
+        if (exitBufferTop < BUFFER_THRESHOLD) {
+          e.preventDefault();
+          exitBufferTop += Math.abs(e.deltaY);
+        }
+      }
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: false });
+
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+    };
+  }, [currentSection]);
+
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-[500px] sm:min-h-[600px] md:h-[85vh] bg-brand-blue overflow-hidden flex items-center py-12 sm:py-0">
-
+      <section
+        ref={(el) => { if (el) sectionsRef.current[0] = el; }}
+        className="snap-section relative min-h-[500px] sm:min-h-[600px] md:h-screen bg-brand-blue overflow-hidden flex items-center py-12 sm:py-0"
+      >
         {/* Antigravity 3D Background */}
         <div className="absolute inset-0 z-0">
           <Antigravity
@@ -115,8 +190,11 @@ export default function Home() {
       </section>
 
       {/* Trust/Stats Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-b from-white to-tata-light-grey">
-        <div className="container mx-auto px-4">
+      <section
+        ref={(el) => { if (el) sectionsRef.current[1] = el; }}
+        className="snap-section min-h-screen py-12 sm:py-16 md:py-20 bg-gradient-to-b from-white to-tata-light-grey flex items-center"
+      >
+        <div className="container mx-auto px-4 w-full">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
             {[
               { number: "500+", label: "Enterprise Projects", delay: "0ms" },
@@ -141,9 +219,99 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Placeholder Section - Alternating Layout */}
+      <section
+        ref={(el) => { if (el) sectionsRef.current[2] = el; }}
+        className="snap-section min-h-screen py-12 sm:py-16 md:py-24 bg-white flex items-center"
+      >
+        <div className="container mx-auto px-4 w-full">
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 md:mb-20">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 leading-tight">
+              Section <span className="text-primary">Title</span>
+            </h2>
+            <p className="text-lg text-foreground/70">Placeholder subtitle text goes here</p>
+          </div>
+
+          <div className="space-y-12 sm:space-y-16 md:space-y-24">
+            {/* Item 1 - Image Left, Text Right */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-center">
+              <div className="relative group">
+                <div className="absolute inset-0 bg-brand-blue/10 rounded-2xl transform rotate-3 group-hover:rotate-6 transition-transform duration-300" />
+                <div className="relative rounded-2xl shadow-xl w-full h-[250px] sm:h-[300px] md:h-[400px] bg-gray-200 flex items-center justify-center">
+                  <span className="text-gray-400 text-xl font-semibold">Image Placeholder</span>
+                </div>
+              </div>
+              <div className="space-y-6">
+                <div className="inline-block px-4 py-2 bg-brand-blue/10 text-brand-blue rounded-full text-sm font-semibold">
+                  Category Tag
+                </div>
+                <h3 className="text-3xl md:text-4xl font-bold text-foreground leading-tight">
+                  Headline Text Goes Here
+                </h3>
+                <p className="text-lg text-foreground/70 leading-relaxed">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
+                    <span className="text-foreground/70">Bullet point one placeholder text</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
+                    <span className="text-foreground/70">Bullet point two placeholder text</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
+                    <span className="text-foreground/70">Bullet point three placeholder text</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Item 2 - Text Left, Image Right */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-center">
+              <div className="space-y-4 sm:space-y-6 lg:order-1 order-2">
+                <div className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-brand-blue/10 text-brand-blue rounded-full text-xs sm:text-sm font-semibold">
+                  Category Tag
+                </div>
+                <h3 className="text-3xl md:text-4xl font-bold text-foreground leading-tight">
+                  Headline Text Goes Here
+                </h3>
+                <p className="text-lg text-foreground/70 leading-relaxed">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
+                    <span className="text-foreground/70">Bullet point one placeholder text</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
+                    <span className="text-foreground/70">Bullet point two placeholder text</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
+                    <span className="text-foreground/70">Bullet point three placeholder text</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="relative group lg:order-2 order-1">
+                <div className="absolute inset-0 bg-brand-blue/10 rounded-2xl transform -rotate-3 group-hover:-rotate-6 transition-transform duration-300" />
+                <div className="relative rounded-2xl shadow-xl w-full h-[250px] sm:h-[300px] md:h-[400px] bg-gray-200 flex items-center justify-center">
+                  <span className="text-gray-400 text-xl font-semibold">Image Placeholder</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Value Props */}
-      <section className="py-12 sm:py-16 md:py-24 bg-tata-light-grey">
-        <div className="container mx-auto px-4">
+      <section
+        ref={(el) => { if (el) sectionsRef.current[3] = el; }}
+        className="snap-section min-h-screen py-12 sm:py-16 md:py-24 bg-tata-light-grey flex items-center"
+      >
+        <div className="container mx-auto px-4 w-full">
           <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 md:mb-16">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-3 sm:mb-4 leading-tight">
               Why Leading Enterprises <span className="text-primary">Choose Us</span>
@@ -177,199 +345,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Placeholder Section - Alternating Layout */}
-      <section className="py-12 sm:py-16 md:py-24 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 md:mb-20">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 leading-tight">
-              Section <span className="text-primary">Title</span>
-            </h2>
-            <p className="text-lg text-foreground/70">Placeholder subtitle text goes here</p>
-          </div>
-
-          <div className="space-y-12 sm:space-y-16 md:space-y-24">
-            {/* Item 1 - Image Left, Text Right */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-center">
-              <div className="relative group">
-                <div className="absolute inset-0 bg-brand-blue/10 rounded-2xl transform rotate-3 group-hover:rotate-6 transition-transform duration-300" />
-                <div className="relative rounded-2xl shadow-xl w-full h-[250px] sm:h-[300px] md:h-[400px] bg-gray-200 flex items-center justify-center">
-                  <span className="text-gray-400 text-xl font-semibold">Image Placeholder</span>
-                </div>
-              </div>
-              <div className="space-y-6">
-                <div className="inline-block px-4 py-2 bg-brand-blue/10 text-brand-blue rounded-full text-sm font-semibold">
-                  Category Tag
-                </div>
-                <h3 className="text-3xl md:text-4xl font-bold text-foreground leading-tight">
-                  Headline Text Goes Here
-                </h3>
-                <p className="text-lg text-foreground/70 leading-relaxed">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-                </p>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
-                    <span className="text-foreground/70">Bullet point one placeholder text</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
-                    <span className="text-foreground/70">Bullet point two placeholder text</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
-                    <span className="text-foreground/70">Bullet point three placeholder text</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Item 2 - Text Left, Image Right */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-center">
-              <div className="space-y-4 sm:space-y-6 lg:order-1 order-2">
-                <div className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-brand-blue/10 text-brand-blue rounded-full text-xs sm:text-sm font-semibold">
-                  Category Tag
-                </div>
-                <h3 className="text-3xl md:text-4xl font-bold text-foreground leading-tight">
-                  Headline Text Goes Here
-                </h3>
-                <p className="text-lg text-foreground/70 leading-relaxed">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-                </p>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
-                    <span className="text-foreground/70">Bullet point one placeholder text</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
-                    <span className="text-foreground/70">Bullet point two placeholder text</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
-                    <span className="text-foreground/70">Bullet point three placeholder text</span>
-                  </li>
-                </ul>
-              </div>
-              <div className="relative group lg:order-2 order-1">
-                <div className="absolute inset-0 bg-brand-blue/10 rounded-2xl transform -rotate-3 group-hover:-rotate-6 transition-transform duration-300" />
-                <div className="relative rounded-2xl shadow-xl w-full h-[250px] sm:h-[300px] md:h-[400px] bg-gray-200 flex items-center justify-center">
-                  <span className="text-gray-400 text-xl font-semibold">Image Placeholder</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Item 3 - Image Left, Text Right */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-center">
-              <div className="relative group">
-                <div className="absolute inset-0 bg-brand-blue/10 rounded-2xl transform rotate-3 group-hover:rotate-6 transition-transform duration-300" />
-                <div className="relative rounded-2xl shadow-xl w-full h-[250px] sm:h-[300px] md:h-[400px] bg-gray-200 flex items-center justify-center">
-                  <span className="text-gray-400 text-base sm:text-xl font-semibold">Image Placeholder</span>
-                </div>
-              </div>
-              <div className="space-y-4 sm:space-y-6">
-                <div className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-brand-blue/10 text-brand-blue rounded-full text-xs sm:text-sm font-semibold">
-                  Category Tag
-                </div>
-                <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground leading-tight">
-                  Headline Text Goes Here
-                </h3>
-                <p className="text-base sm:text-lg text-foreground/70 leading-relaxed">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-                </p>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 text-brand-blue flex-shrink-0 mt-1" />
-                    <span className="text-sm sm:text-base text-foreground/70">Bullet point one placeholder text</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 text-brand-blue flex-shrink-0 mt-1" />
-                    <span className="text-sm sm:text-base text-foreground/70">Bullet point two placeholder text</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 text-brand-blue flex-shrink-0 mt-1" />
-                    <span className="text-sm sm:text-base text-foreground/70">Bullet point three placeholder text</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Item 4 - Text Left, Image Right */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-center">
-              <div className="space-y-4 sm:space-y-6 lg:order-1 order-2">
-                <div className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-brand-blue/10 text-brand-blue rounded-full text-xs sm:text-sm font-semibold">
-                  Category Tag
-                </div>
-                <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground leading-tight">
-                  Headline Text Goes Here
-                </h3>
-                <p className="text-base sm:text-lg text-foreground/70 leading-relaxed">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-                </p>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
-                    <span className="text-foreground/70">Bullet point one placeholder text</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
-                    <span className="text-foreground/70">Bullet point two placeholder text</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
-                    <span className="text-foreground/70">Bullet point three placeholder text</span>
-                  </li>
-                </ul>
-              </div>
-              <div className="relative group lg:order-2 order-1">
-                <div className="absolute inset-0 bg-brand-blue/10 rounded-2xl transform -rotate-3 group-hover:-rotate-6 transition-transform duration-300" />
-                <div className="relative rounded-2xl shadow-xl w-full h-[400px] bg-gray-200 flex items-center justify-center">
-                  <span className="text-gray-400 text-xl font-semibold">Image Placeholder</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Item 5 - Image Left, Text Right */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="relative group">
-                <div className="absolute inset-0 bg-brand-blue/10 rounded-2xl transform rotate-3 group-hover:rotate-6 transition-transform duration-300" />
-                <div className="relative rounded-2xl shadow-xl w-full h-[400px] bg-gray-200 flex items-center justify-center">
-                  <span className="text-gray-400 text-xl font-semibold">Image Placeholder</span>
-                </div>
-              </div>
-              <div className="space-y-6">
-                <div className="inline-block px-4 py-2 bg-brand-blue/10 text-brand-blue rounded-full text-sm font-semibold">
-                  Category Tag
-                </div>
-                <h3 className="text-3xl md:text-4xl font-bold text-foreground leading-tight">
-                  Headline Text Goes Here
-                </h3>
-                <p className="text-lg text-foreground/70 leading-relaxed">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-                </p>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
-                    <span className="text-foreground/70">Bullet point one placeholder text</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
-                    <span className="text-foreground/70">Bullet point two placeholder text</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-6 w-6 text-brand-blue flex-shrink-0 mt-1" />
-                    <span className="text-foreground/70">Bullet point three placeholder text</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Featured Services */}
-      <section className="py-24 bg-white relative overflow-hidden">
+      <section
+        ref={(el) => { if (el) sectionsRef.current[4] = el; }}
+        className="snap-section min-h-screen py-24 bg-white relative overflow-hidden flex items-center"
+      >
         <div className="absolute inset-0 bg-tata-silver/5" />
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-4 relative z-10 w-full">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 leading-tight">
               Our Core <span className="text-primary">Services</span>
@@ -418,10 +400,13 @@ export default function Home() {
       </section>
 
       {/* Client Testimonials */}
-      <section className="py-12 sm:py-16 md:py-24 bg-brand-blue text-white relative overflow-hidden">
+      <section
+        ref={(el) => { if (el) sectionsRef.current[5] = el; }}
+        className="snap-section min-h-screen py-12 sm:py-16 md:py-24 bg-brand-blue text-white relative overflow-hidden flex items-center"
+      >
         <div className="absolute inset-0 bg-white/5" />
 
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-4 relative z-10 w-full">
           <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 md:mb-16">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">What Our Clients Say</h2>
             <p className="text-white/80 text-base sm:text-lg">Trusted by leading organizations worldwide</p>
@@ -458,8 +443,11 @@ export default function Home() {
       </section>
 
       {/* Trust Badges */}
-      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-b from-tata-light-grey to-white">
-        <div className="container mx-auto px-4">
+      <section
+        ref={(el) => { if (el) sectionsRef.current[6] = el; }}
+        className="snap-section min-h-screen py-12 sm:py-16 md:py-20 bg-gradient-to-b from-tata-light-grey to-white flex items-center"
+      >
+        <div className="container mx-auto px-4 w-full">
           <div className="text-center mb-8 sm:mb-10 md:mb-12">
             <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-2 sm:mb-3">Certified & Trusted</h3>
             <p className="text-base sm:text-lg text-foreground/70">Industry-leading certifications and partnerships</p>
@@ -487,11 +475,14 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative py-12 sm:py-16 md:py-24 bg-brand-blue text-white overflow-hidden">
+      <section
+        ref={(el) => { if (el) sectionsRef.current[7] = el; }}
+        className="snap-section relative min-h-screen py-12 sm:py-16 md:py-24 bg-brand-blue text-white overflow-hidden flex items-center"
+      >
         <div className="absolute inset-0 bg-brand-dark-navy/20" />
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
 
-        <div className="container mx-auto px-4 text-center relative z-10">
+        <div className="container mx-auto px-4 text-center relative z-10 w-full">
           <div className="inline-flex p-3 sm:p-4 rounded-2xl bg-white/10 backdrop-blur-sm mb-4 sm:mb-6 animate-pulse" style={{ animationDuration: '3s' }}>
             <Users className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 text-white" />
           </div>

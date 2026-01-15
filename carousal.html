@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinity Carousel Slider</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Enable Scroll Snap on the main document */
+        html {
+            scroll-snap-type: y mandatory;
+            height: 100%; /* Ensure html takes full height */
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #000;
+            color: #eee;
+            margin: 0;
+            overflow-x: hidden;
+            height: 100%; /* Ensure body takes full height */
+        }
+
+        /* --- Placeholder Sections --- */
+        .placeholder-section {
+            height: 100vh; /* Fallback */
+            height: 100dvh; /* Mobile viewport fix */
+            width: 100%; /* Changed from 100vw to prevent scrollbar overflow */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 1px solid #333;
+            /* Snap Alignment */
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+        }
+        .bg-dark-1 { background-color: #111; }
+        .bg-dark-2 { background-color: #1a1a1a; }
+        .bg-dark-3 { background-color: #0f0f0f; }
+
+        /* --- Carousel Main Container --- */
+        .carousel {
+            height: 100vh; /* Fallback */
+            height: 100dvh; /* Mobile viewport fix */
+            width: 100%; /* Changed from 100vw */
+            overflow: hidden;
+            position: relative;
+            display: block; 
+            /* Hint to browser to prioritize handling scroll here */
+            overscroll-behavior: none;
+            /* Snap Alignment */
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+        }
+
+        /* --- The List of Items --- */
+        .carousel .list {
+            position: absolute;
+            width: 1140px;
+            max-width: 90%;
+            height: 100%; /* FIXED: Was 80%, now fills container */
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* --- Individual Item Card --- */
+        .carousel .list .item {
+            position: absolute;
+            left: 0%;
+            width: 70%;
+            height: 100%;
+            font-size: 15px;
+            transition: left 0.5s, opacity 0.5s, width 0.5s;
+        }
+
+        /* --- Item Image --- */
+        .carousel .list .item img {
+            width: 50%;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: right 1.5s, top 1.5s, width 1.5s, height 1.5s; 
+            object-fit: cover; 
+            border-radius: 20px;
+        }
+        
+        /* The Blur Box behind the image */
+        .blur-box {
+            position: absolute;
+            top: 50%;
+            right: 0; 
+            transform: translateY(-50%) translate(-10%, 10%); 
+            width: 50%;
+            height: 60%;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.6;
+            transition: background-color 0.5s;
+        }
+
+
+        /* --- Item Intro Content (Visible Initially) --- */
+        .carousel .list .item .intro {
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+            top: 50%;
+            width: 400px;
+            transform: translateY(-50%); 
+        }
+
+        /* --- Item Detail Content (Hidden Initially) --- */
+        .carousel .list .item .detail {
+            opacity: 0;
+            pointer-events: none;
+            width: 50%;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            text-align: right;
+        }
+
+        /* --- Positioning Logic (The Magic) --- */
+        
+        /* Position 1: Left, Hidden/Fading out */
+        .carousel .list .item:nth-child(1) {
+            transform: translateX(-100%) translateY(5%) scale(1.5);
+            filter: blur(30px);
+            z-index: 11;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Position 2: Active Item (Main Focus) */
+        .carousel .list .item:nth-child(2) {
+            transform: translateX(0);
+            z-index: 10;
+            filter: blur(0);
+            opacity: 1;
+        }
+        .carousel .list .item:nth-child(2) .intro {
+            opacity: 1;
+            pointer-events: auto;
+            transition: opacity 0.5s;
+        }
+
+        /* Position 3: First Background Item */
+        .carousel .list .item:nth-child(3) {
+            transform: translate(50%, 10%) scale(0.8);
+            filter: blur(10px);
+            z-index: 9;
+            opacity: 1;
+        }
+
+        /* Position 4: Second Background Item */
+        .carousel .list .item:nth-child(4) {
+            transform: translate(90%, 20%) scale(0.6);
+            filter: blur(30px);
+            z-index: 8;
+            opacity: 1;
+        }
+
+        /* Position 5: Third Background Item */
+        .carousel .list .item:nth-child(5) {
+            transform: translate(120%, 30%) scale(0.4);
+            filter: blur(40px);
+            z-index: 7;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        /* Position 6+: Hidden */
+        .carousel .list .item:nth-child(n+6) {
+            transform: translate(120%, 30%) scale(0.4);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* --- VISUAL LOOP BREAKERS --- */
+        /* When at the last slide, hide the items that wrap around to the right */
+        .carousel.last-item .list .item:nth-child(3),
+        .carousel.last-item .list .item:nth-child(4),
+        .carousel.last-item .list .item:nth-child(5) {
+            opacity: 0 !important;
+            pointer-events: none;
+        }
+        
+        /* When at the first slide, hide the item wrapping to the left (already hidden by pos 1 usually, but strictness helps) */
+        .carousel.first-item .list .item:nth-child(1) {
+            opacity: 0 !important;
+        }
+
+
+        /* --- Animations for Transitions --- */
+        
+        /* NEXT Animation Classes */
+        .carousel.next .list .item:nth-child(1) { animation: positionItem2 0.5s ease-in-out 1 forwards; }
+        .carousel.next .list .item:nth-child(2) { animation: positionItem3 0.7s ease-in-out 1 forwards; }
+        .carousel.next .list .item:nth-child(3) { animation: positionItem4 0.9s ease-in-out 1 forwards; }
+        .carousel.next .list .item:nth-child(4) { animation: positionItem5 1.1s ease-in-out 1 forwards; }
+
+        @keyframes positionItem2 {
+            from { transform: translateX(0); filter: blur(0); z-index: 10; opacity: 1; }
+        }
+        @keyframes positionItem3 {
+            from { transform: translate(50%, 10%) scale(0.8); filter: blur(10px); z-index: 9; opacity: 1; }
+        }
+        @keyframes positionItem4 {
+            from { transform: translate(90%, 20%) scale(0.6); filter: blur(30px); z-index: 8; opacity: 1; }
+        }
+        @keyframes positionItem5 {
+            from { transform: translate(120%, 30%) scale(0.4); filter: blur(40px); z-index: 7; opacity: 0; }
+        }
+
+        /* PREV Animation Classes */
+        .carousel.prev .list .item:nth-child(2) { animation: positionItem1 0.5s ease-in-out 1 forwards; }
+        .carousel.prev .list .item:nth-child(3) { animation: positionItem2 0.7s ease-in-out 1 forwards; }
+        .carousel.prev .list .item:nth-child(4) { animation: positionItem3 0.9s ease-in-out 1 forwards; }
+        .carousel.prev .list .item:nth-child(5) { animation: positionItem4 1.1s ease-in-out 1 forwards; }
+
+        @keyframes positionItem1 {
+            from { transform: translateX(-100%) translateY(5%) scale(1.5); filter: blur(30px); z-index: 11; opacity: 0; }
+        }
+
+
+        /* --- Show Detail State (DESKTOP) --- */
+        .carousel.showDetail .list .item:nth-child(3),
+        .carousel.showDetail .list .item:nth-child(4) {
+            left: 100%;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .carousel.showDetail .list .item:nth-child(2) {
+            width: 100%;
+        }
+        
+        .carousel.showDetail .list .item:nth-child(2) .intro {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Desktop: Image goes left, Text goes right */
+        .carousel.showDetail .list .item:nth-child(2) img {
+            right: 50%;
+            transform: translateY(-50%);
+            width: 50%;
+        }
+
+        .carousel.showDetail .list .item:nth-child(2) .detail { opacity: 1; pointer-events: auto; right: 0; width: 50%; top: 0; height: 100%; transform: none; display: flex; flex-direction: column; justify-content: center; padding-left: 40px; box-sizing: border-box; }
+        
+        /* Content Animations */
+        .carousel.showDetail .list .item:nth-child(2) .detail .title,
+        .carousel.showDetail .list .item:nth-child(2) .detail .des,
+        .carousel.showDetail .list .item:nth-child(2) .detail .specifications,
+        .carousel.showDetail .list .item:nth-child(2) .detail .checkout {
+            opacity: 0;
+            animation: showContent 0.5s 1s ease-in-out 1 forwards;
+        }
+        .carousel.showDetail .list .item:nth-child(2) .detail .des { animation-delay: 1.2s; }
+        .carousel.showDetail .list .item:nth-child(2) .detail .specifications { animation-delay: 1.4s; }
+        .carousel.showDetail .list .item:nth-child(2) .detail .checkout { animation-delay: 1.6s; }
+
+        @keyframes showContent {
+            from { opacity: 0; transform: translateY(50px); filter: blur(30px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        /* --- Arrows --- */
+        .arrows {
+            position: absolute;
+            bottom: 50px; 
+            width: 1140px;
+            max-width: 90%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+        
+        .arrows button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.5);
+            color: #fff;
+            font-family: monospace;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .arrows button:hover {
+            background-color: #fff;
+            color: #000;
+        }
+
+        /* --- Back Button --- */
+        #back {
+            position: absolute; 
+            z-index: 101; 
+            top: 50px; 
+            left: 50px;
+            border: none;
+            font-family: 'Poppins';
+            font-weight: bold;
+            font-size: 16px;
+            letter-spacing: 2px;
+            background: rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            border-radius: 30px;
+            color: #fff;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.5s;
+        }
+        
+        #back:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        .carousel.showDetail #back {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .carousel.showDetail .arrows {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* --- Mobile Responsiveness --- */
+        @media screen and (max-width: 991px) {
+            .carousel .list .item { width: 90%; }
+            .carousel .list .item .detail { width: 60%; font-size: 12px;} 
+            .carousel.showDetail .list .item:nth-child(2) .detail .title { font-size: 30px; }
+        }
+
+        @media screen and (max-width: 767px) {
+            .carousel { height: 100dvh; margin-top: 0;} 
+            .carousel .list .item { width: 100%; font-size: 10px; } .carousel .list .item .intro { width: 90%; top: 60%; left: 50%; transform: translateX(-50%); text-align: center; } .carousel .list .item img { width: 100%; height: 50%; top: 20px; right: 0; transform: none; object-fit: contain; } .carousel .list .item:nth-child(2) .intro { opacity: 1; pointer-events: auto; } .carousel .list .item .intro .title { font-size: 4em; } .carousel .list .item .intro .topic { font-size: 5em; } .carousel .list .item .intro .des { font-size: 14px; } .arrows { top: 75%; bottom: auto; }
+            
+            .carousel.showDetail .list .item:nth-child(2) img { right: 0; top: 0; width: 100%; height: 45%; transform: none; border-radius: 0 0 20px 20px; object-fit: contain; }
+
+            .carousel.showDetail .list .item:nth-child(2) .detail { 
+                width: 100%;
+                height: 100%; /* Full height overlay */
+                top: auto;
+                bottom: 0; 
+                right: 0;
+                /* Full screen gradient: Fade from black (bottom) to transparent (top) */
+                background: linear-gradient(to top, #000 0%, #000 40%, transparent 100%);
+                padding: 20px;
+                padding-bottom: 50px; /* Space from bottom */
+                box-sizing: border-box;
+                font-size: 14px;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end; /* Align content to bottom */
+                backdrop-filter: none;
+            }
+            .carousel.showDetail .list .item:nth-child(2) .detail .title { font-size: 25px; margin-top: 20px; }
+            
+            #back {
+                top: 20px;
+                left: 20px;
+                padding: 8px 15px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body class="">
+
+    <!-- 2 Top Placeholders -->
+    <div class="placeholder-section bg-dark-1">Top Section 1</div>
+    <div class="placeholder-section bg-dark-2">Top Section 2</div>
+
+    <!-- Main Carousel -->
+    <div class="carousel" id="carousel">
+        <div class="list" id="slider-list">
+            <!-- Items injected by JS -->
+        </div>
+
+        <div class="arrows">
+            <button id="prev"><</button>
+            <button id="next">></button>
+        </div>
+
+        <button id="back">← Back</button>
+    </div>
+
+    <!-- 5 Bottom Placeholders -->
+    <div class="placeholder-section bg-dark-3">Bottom Section 1</div>
+    <div class="placeholder-section bg-dark-1">Bottom Section 2</div>
+    <div class="placeholder-section bg-dark-2">Bottom Section 3</div>
+    <div class="placeholder-section bg-dark-3">Bottom Section 4</div>
+    <div class="placeholder-section bg-dark-1">Bottom Section 5</div>
+
+    <script>
+        // --- DATA ---
+        const products = [
+            {
+                title: "Web Design",
+                topic: "Digital",
+                desc: "Crafting visual experiences that captivate and convert. We build websites that tell your brand story.",
+                detailTitle: "Website Design",
+                detailDesc: "From landing pages to complex web applications, our designs are responsive, user-friendly, and optimized for performance.",
+                specifications: [ { label: "Style", value: "Modern" }, { label: "Tech", value: "HTML5" }, { label: "UX", value: "Focus" } ],
+                image: "https://picsum.photos/1000?random=1",
+                color: "#f1683a"
+            },
+            {
+                title: "SEO",
+                topic: "Growth",
+                desc: "Driving organic traffic to your business. Be seen by the people who are looking for you.",
+                detailTitle: "Search Engine Opt",
+                detailDesc: "We use data-driven strategies to improve your rankings, increase visibility, and drive sustainable growth.",
+                specifications: [ { label: "Rank", value: "#1" }, { label: "Traffic", value: "High" }, { label: "ROI", value: "Best" } ],
+                image: "https://picsum.photos/1000?random=2",
+                color: "#2a2a2a"
+            },
+            {
+                title: "Social Media",
+                topic: "Engagement",
+                desc: "Building communities and sparking conversations. Connect with your audience where they spend their time.",
+                detailTitle: "Social Media Opt",
+                detailDesc: "We manage your presence across all platforms, creating content that resonates and builds brand loyalty.",
+                specifications: [ { label: "Reach", value: "Max" }, { label: "Viral", value: "Yes" }, { label: "Fans", value: "Real" } ],
+                image: "https://picsum.photos/1000?random=3",
+                color: "#d4af37"
+            },
+            {
+                title: "Campaigns",
+                topic: "Strategy",
+                desc: "Targeted campaigns that deliver results. We reach your ideal customer with the right message.",
+                detailTitle: "Marketing Campaigns",
+                detailDesc: "PPC, Email, and Display ads tailored to your goals. We optimize every dollar for maximum impact.",
+                specifications: [ { label: "Leads", value: "Hot" }, { label: "Cost", value: "Low" }, { label: "Conv", value: "High" } ],
+                image: "https://picsum.photos/1000?random=4",
+                color: "#ff5722"
+            },
+            {
+                title: "Branding",
+                topic: "Identity",
+                desc: "Creating a lasting impression. We define your voice, visual identity, and market position.",
+                detailTitle: "Branding",
+                detailDesc: "Logos, color palettes, and guidelines that ensure consistency and build trust with your audience.",
+                specifications: [ { label: "Look", value: "Unique" }, { label: "Feel", value: "Prem" }, { label: "Love", value: "100%" } ],
+                image: "https://picsum.photos/1000?random=5",
+                color: "#2196f3"
+            }
+        ];
+
+        // --- GLOBAL VARIABLES (Declared TOP to avoid TDZ errors) ---
+        const listHTML = document.getElementById('slider-list');
+        const carousel = document.getElementById('carousel');
+        const nextBtn = document.getElementById('next');
+        const prevBtn = document.getElementById('prev');
+        const backBtn = document.getElementById('back');
+        
+        let unAcceppClick; 
+        let isAnimating = false;
+        let virtualIndex = 0; 
+        const maxIndex = products.length - 1;
+
+        // Buffers for exit resistance
+        let exitBufferTop = 0;
+        let exitBufferBottom = 0;
+        const BUFFER_THRESHOLD = 15; // LOWERED: Requires less effort to exit
+        
+        // Touch variables
+        let touchStartY = 0;
+        let touchEndY = 0;
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        // --- FUNCTIONS ---
+        function showSlider(type) {
+            if (isAnimating) return;
+            
+            // STRICT BOUNDARY CHECKS
+            if (type === 'next' && virtualIndex >= maxIndex) return;
+            if (type === 'prev' && virtualIndex <= 0) return;
+
+            isAnimating = true;
+            
+            // Reset buffers on navigation so resistance is fresh next time
+            exitBufferTop = 0;
+            exitBufferBottom = 0;
+
+            // Disable buttons during animation
+            nextBtn.style.pointerEvents = 'none';
+            prevBtn.style.pointerEvents = 'none';
+
+            carousel.classList.remove('next', 'prev');
+            let items = document.querySelectorAll('.carousel .list .item');
+            
+            if(type === 'next'){
+                listHTML.appendChild(items[0]); 
+                carousel.classList.add('next');
+                virtualIndex++;
+            } else {
+                listHTML.prepend(items[items.length - 1]); 
+                carousel.classList.add('prev');
+                virtualIndex--;
+            }
+            
+            updateCarouselBounds();
+
+            clearTimeout(unAcceppClick);
+            unAcceppClick = setTimeout(() => {
+                isAnimating = false;
+                // Re-enable clicks
+                updateCarouselBounds(); 
+            }, 1200); 
+        }
+
+        function updateCarouselBounds() {
+            // Remove helper classes
+            carousel.classList.remove('first-item', 'last-item');
+            
+            // Add Visual classes for fading out background loop artifacts
+            if (virtualIndex === 0) carousel.classList.add('first-item');
+            if (virtualIndex === maxIndex) carousel.classList.add('last-item');
+            
+            // Button Visibility
+            prevBtn.style.opacity = virtualIndex === 0 ? '0.3' : '1';
+            nextBtn.style.opacity = virtualIndex === maxIndex ? '0.3' : '1';
+            
+            // Button Interactability (only enable if animation is done)
+            if(!isAnimating) {
+                prevBtn.style.pointerEvents = virtualIndex === 0 ? 'none' : 'auto';
+                nextBtn.style.pointerEvents = virtualIndex === maxIndex ? 'none' : 'auto';
+            }
+        }
+        
+        // Helper to snap (using offsetTop for absolute stability)
+        function snapToCarousel() {
+            // Using offsetTop ensures we jump exactly to the element's position in the document
+            window.scrollTo({ top: carousel.offsetTop, behavior: 'smooth' }); // Smooth for better UX
+        }
+
+        function initSlider() {
+            // Reset buffers
+            exitBufferTop = 0;
+            exitBufferBottom = 0;
+
+            products.forEach((product) => {
+                const item = document.createElement('div');
+                item.classList.add('item');
+                
+                let specsHTML = '';
+                product.specifications.forEach(spec => {
+                    specsHTML += `<div class="flex flex-col items-center"><p class="font-bold text-lg">${spec.value}</p><p class="text-xs text-gray-400">${spec.label}</p></div>`;
+                });
+
+                item.innerHTML = `
+                    <div class="blur-box" style="background-color: ${product.color}"></div>
+                    <img src="${product.image}">
+                    <div class="intro">
+                        <div class="title font-bold text-2xl tracking-wider leading-none">${product.title.toUpperCase()}</div>
+                        <div class="topic font-bold text-5xl tracking-wide leading-none text-[#f1683a]">${product.topic.toUpperCase()}</div>
+                        <div class="des text-sm mt-5 mb-5 tracking-wide leading-relaxed">${product.desc}</div>
+                        <button class="see-more-btn border-b border-gray-400 pb-1 font-bold font-poppins mt-3 tracking-widest hover:text-white transition">SEE MORE &#8599;</button>
+                    </div>
+                    <div class="detail">
+                        <div class="title font-bold text-4xl mb-3">${product.detailTitle}</div>
+                        <div class="des text-sm text-gray-300 tracking-wide mb-5">${product.detailDesc}</div>
+                        <div class="specifications flex gap-5 w-full border-t border-gray-700 pt-5 mt-5">${specsHTML}</div>
+                        <div class="checkout mt-5">
+                            <button class="bg-transparent border border-white text-white px-4 py-2 font-poppins font-medium hover:bg-white hover:text-black transition">ADD TO CART</button>
+                            <button class="bg-transparent border border-white text-white px-4 py-2 font-poppins font-medium ml-2 hover:bg-[#f1683a] hover:border-[#f1683a] transition">CHECKOUT</button>
+                        </div>
+                    </div>`;
+                listHTML.appendChild(item);
+            });
+            
+            // Move the last item to the front immediately so Item 1 becomes the 2nd child (Active)
+            const items = listHTML.querySelectorAll('.item');
+            if(items.length > 0) {
+                listHTML.prepend(items[items.length - 1]);
+            }
+
+            // Bind click events
+            const seeMoreButtons = document.querySelectorAll('.see-more-btn');
+            seeMoreButtons.forEach(btn => {
+                btn.onclick = function() {
+                    carousel.classList.remove('next', 'prev');
+                    carousel.classList.add('showDetail');
+                }
+            });
+
+            // Set initial state
+            updateCarouselBounds(); 
+        }
+        
+        // --- MOBILE TOUCH HANDLING ---
+        function handleTouchGesture() {
+            if(carousel.classList.contains('showDetail')) return;
+
+            const swipeDistY = touchStartY - touchEndY;
+            const swipeDistX = touchStartX - touchEndX; // Start - End: Positive = Left Swipe, Negative = Right Swipe
+            const SWIPE_THRESHOLD = 30;
+            
+            // Check if horizontal swipe is more significant than vertical
+            if(Math.abs(swipeDistX) > Math.abs(swipeDistY)) {
+                // Horizontal Logic
+                // Swipe LEFT (Move Finger Right -> Left) -> NEXT
+                if (swipeDistX > SWIPE_THRESHOLD) {
+                    if (virtualIndex < maxIndex) {
+                         if (!isAnimating) showSlider('next');
+                    }
+                } 
+                // Swipe RIGHT (Move Finger Left -> Right) -> PREV
+                else if (swipeDistX < -SWIPE_THRESHOLD) {
+                    if (virtualIndex > 0) {
+                        if (!isAnimating) showSlider('prev');
+                    }
+                }
+            } else {
+                // Vertical Logic (Keep existing behavior: Swipe Up -> Next, Swipe Down -> Prev)
+                if (swipeDistY > SWIPE_THRESHOLD) {
+                    if (virtualIndex < maxIndex) {
+                         if (!isAnimating) showSlider('next');
+                    }
+                } 
+                else if (swipeDistY < -SWIPE_THRESHOLD) {
+                    if (virtualIndex > 0) {
+                        if (!isAnimating) showSlider('prev');
+                    }
+                }
+            }
+        }
+
+        // --- EVENT LISTENERS ---
+        nextBtn.onclick = function(){ showSlider('next'); }
+        prevBtn.onclick = function(){ showSlider('prev'); }
+        backBtn.onclick = function(){ carousel.classList.remove('showDetail'); }
+        
+        // Touch Listeners
+        carousel.addEventListener('touchstart', e => {
+            touchStartY = e.changedTouches[0].screenY;
+            touchStartX = e.changedTouches[0].screenX;
+        }, {passive: false});
+        
+        carousel.addEventListener('touchmove', e => {
+             // We want horizontal swipes to trigger carousel, vertical swipes might be for scrolling (if enabled later) or navigation
+             // But here we block default to prevent browser navigation gestures and ensure smooth swipes
+             if(!carousel.classList.contains('showDetail')) {
+                 e.preventDefault();
+             }
+        }, {passive: false});
+        
+        carousel.addEventListener('touchend', e => {
+            touchEndY = e.changedTouches[0].screenY;
+            touchEndX = e.changedTouches[0].screenX;
+            handleTouchGesture();
+        }, {passive: false});
+
+        // Revised Scroll Jacking Logic (Robust & Anti-Drift + Exit Resistance + Snap First)
+        window.addEventListener('wheel', (e) => {
+            if(carousel.classList.contains('showDetail')) return;
+
+            const rect = carousel.getBoundingClientRect();
+            // Expanded entry zone to catch fast scrolls
+            const isEntering = rect.top > -100 && rect.top < 100;
+            // STRONG LOCK: If we are mid-sequence, we trap the scroll even if slightly off-screen
+            const isLocked = virtualIndex > 0 && virtualIndex < maxIndex;
+
+            if (isEntering || isLocked) {
+                // If scrolling DOWN
+                if (e.deltaY > 0) {
+                    // Navigate Next (Middle -> Next)
+                    if (virtualIndex < maxIndex) {
+                        // FIX: Snap First Check (If entering from top and not perfectly aligned)
+                        // Increased tolerance to 20px for mobile quirks
+                        if (virtualIndex === 0 && Math.abs(rect.top) > 20) {
+                            e.preventDefault();
+                            snapToCarousel();
+                            return; // Stop. Wait for next event.
+                        }
+
+                        e.preventDefault(); 
+                        snapToCarousel(); 
+                        if (!isAnimating) showSlider('next');
+                    }
+                    // Exit Check (Last -> Exit)
+                    else if (virtualIndex === maxIndex) {
+                        if (exitBufferBottom < BUFFER_THRESHOLD) {
+                             e.preventDefault();
+                             snapToCarousel();
+                             exitBufferBottom += e.deltaY;
+                        }
+                        // Else: Buffer full, allow natural scroll
+                    }
+                } 
+                // If scrolling UP
+                else if (e.deltaY < 0) {
+                    // Navigate Prev (Middle -> Prev)
+                    if (virtualIndex > 0) {
+                        // FIX: Snap First Check (If entering from bottom and not perfectly aligned)
+                        // Increased tolerance to 20px
+                        if (virtualIndex === maxIndex && Math.abs(rect.top) > 20) {
+                            e.preventDefault();
+                            snapToCarousel();
+                            return; // Stop. Wait for next event.
+                        }
+
+                        e.preventDefault(); 
+                        snapToCarousel();
+                        if (!isAnimating) showSlider('prev');
+                    }
+                    // Exit Check (First -> Exit)
+                    else if (virtualIndex === 0) {
+                        if (exitBufferTop < BUFFER_THRESHOLD) {
+                             e.preventDefault();
+                             snapToCarousel();
+                             exitBufferTop += Math.abs(e.deltaY);
+                        }
+                        // Else: Buffer full, allow natural scroll
+                    }
+                }
+            }
+        }, { passive: false });
+
+        // Anti-Drift: If user drags scrollbar or uses keys while in "Locked" phase
+        window.addEventListener('scroll', (e) => {
+             // If we are definitely inside the carousel flow (not at edges), force snap
+             if (virtualIndex > 0 && virtualIndex < maxIndex && !carousel.classList.contains('showDetail')) {
+                 if(Math.abs(window.scrollY - carousel.offsetTop) > 5) {
+                     window.scrollTo({ top: carousel.offsetTop, behavior: 'auto' });
+                 }
+             }
+        });
+
+        // --- EXECUTE ---
+        initSlider();
+
+    </script>
+</body>
+</html>
