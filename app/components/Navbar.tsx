@@ -21,19 +21,24 @@ export function Navbar() {
         { name: "About Us", path: "/about" },
         { name: "Services", path: "/services" },
         { name: "Work", path: "/work" },
+        { name: "Pricing", path: "/pricing" },
     ];
 
     return (
         <nav
             className={cn(
-                "fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 border border-white/10",
+                "fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-300 border border-white/10",
+                scrolled ? "top-2" : "top-4",
                 isOpen
-                    ? "w-[95%] rounded-3xl bg-brand-dark-navy"
-                    : "w-[95%] rounded-full bg-brand-dark-navy/80 backdrop-blur-md",
+                    ? "w-[95%] rounded-3xl bg-brand-dark-navy" // Keep full width when mobile menu is open
+                    : cn(
+                        "rounded-full bg-brand-dark-navy/80 backdrop-blur-md",
+                        scrolled ? "w-[90%] md:w-[65%]" : "w-[92%] md:w-[80%]" // Shrink width when scrolled and menu closed
+                    ),
                 scrolled ? "shadow-xl" : "shadow-lg"
             )}
         >
-            <div className="px-6 h-16 flex items-center justify-between md:gap-8">
+            <div className={cn("px-6 flex items-center justify-between md:gap-8 transition-all duration-300", scrolled ? "h-14" : "h-16")}>
                 <Link
                     to="/"
                     className="flex items-center transition-transform duration-300 hover:scale-105 focus-ring rounded-md"

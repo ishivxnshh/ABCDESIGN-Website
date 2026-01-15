@@ -9,7 +9,7 @@ export const meta: MetaFunction = () => {
 export default function About() {
     return (
         <div className="bg-white">
-            <div className="relative bg-brand-blue py-12 sm:py-16 md:py-20 lg:py-24 text-white overflow-hidden">
+            <div className="relative bg-brand-blue pt-20 pb-12 sm:pt-24 sm:pb-16 md:pt-32 md:pb-20 lg:pt-40 lg:pb-24 text-white overflow-hidden">
                 <div className="absolute inset-0 bg-brand-dark-navy/20" />
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
                 <div className="container mx-auto px-4 relative z-10">

@@ -75,7 +75,7 @@ export default function Work() {
 
     return (
         <div className="bg-white min-h-screen">
-            <div className="relative bg-brand-blue py-12 sm:py-16 md:py-20 lg:py-24 text-white overflow-hidden">
+            <div className="relative bg-brand-blue pt-20 pb-12 sm:pt-24 sm:pb-16 md:pt-32 md:pb-20 lg:pt-40 lg:pb-24 text-white overflow-hidden">
                 <div className="absolute inset-0 bg-brand-dark-navy/20" />
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
                 <div className="container mx-auto px-4 relative z-10">
@@ -97,7 +97,7 @@ export default function Work() {
                                     <img src={project.image} alt={project.title} className="w-full h-auto transition-transform duration-500 group-hover:scale-105" />
                                 </div>
                             </div>
-                            
+
                             {/* Project Details */}
                             <div className="w-full lg:w-1/2 space-y-4 sm:space-y-6">
                                 <Badge variant="secondary" className="inline-flex px-3 sm:px-4 py-1.5 sm:py-2 bg-brand-blue/10 text-brand-blue border border-brand-blue/20 font-semibold text-xs sm:text-sm">
@@ -108,7 +108,7 @@ export default function Work() {
                                     <h3 className="text-xl sm:text-2xl text-brand-blue font-semibold mb-3 sm:mb-4">{project.title}</h3>
                                     <p className="text-foreground/80 text-base sm:text-lg leading-relaxed">{project.desc}</p>
                                 </div>
-                                
+
                                 {/* Metrics */}
                                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
                                     {project.metrics.map((metric, idx) => (
@@ -152,12 +152,12 @@ export default function Work() {
                                     </div>
                                 </div>
 
-                                <Button 
-                                    className="border-2 border-brand-blue text-brand-blue bg-transparent hover:bg-brand-blue hover:text-white transition-all duration-300 group/btn" 
+                                <Button
+                                    className="border-2 border-brand-blue text-brand-blue bg-transparent hover:bg-brand-blue hover:text-white transition-all duration-300 group/btn"
                                     asChild
                                 >
                                     <Link to="/contact" className="inline-flex items-center gap-2">
-                                        Discuss Your Project 
+                                        Discuss Your Project
                                         <ExternalLink className="h-4 w-4 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
                                     </Link>
                                 </Button>

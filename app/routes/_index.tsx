@@ -30,11 +30,12 @@ export default function Home() {
         {/* Antigravity 3D Background */}
         <div className="absolute inset-0 z-0">
           <Antigravity
-            count={150}
+            count={300}
             magnetRadius={15}
             ringRadius={12}
             color="#2F80ED" // Brand Accent Blue
-            particleSize={3}
+            particleSize={2}
+            autoAnimate={true}
           />
         </div>
 

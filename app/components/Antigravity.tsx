@@ -102,10 +102,10 @@ const AntigravityInner: React.FC<AntigravityProps> = ({
         let destX = (m.x * v.width) / 2;
         let destY = (m.y * v.height) / 2;
 
-        if (autoAnimate && Date.now() - lastMouseMoveTime.current > 2000) {
+        if (autoAnimate && Date.now() - lastMouseMoveTime.current > 1000) {
             const time = state.clock.getElapsedTime();
-            destX = Math.sin(time * 0.5) * (v.width / 4);
-            destY = Math.cos(time * 0.5 * 2) * (v.height / 4);
+            destX = Math.sin(time * 0.5) * (v.width / 3);
+            destY = Math.cos(time * 0.3) * (v.height / 3);
         }
 
         const smoothFactor = 0.05;
@@ -116,21 +116,31 @@ const AntigravityInner: React.FC<AntigravityProps> = ({
         const targetY = virtualMouse.current.y;
 
         const globalRotation = state.clock.getElapsedTime() * rotationSpeed;
+        const time = state.clock.getElapsedTime();
 
         particles.forEach((particle, i) => {
             let { t, speed, mx, my, mz, cz, randomRadiusOffset } = particle;
 
             t = particle.t += speed / 2;
 
+            // Ambient floating motion
+            const floatX = Math.sin(time * 0.2 + particle.xFactor) * 2;
+            const floatY = Math.cos(time * 0.15 + particle.yFactor) * 2;
+            const floatZ = Math.sin(time * 0.1 + particle.zFactor) * 0.5;
+
+            const currentMx = mx + floatX;
+            const currentMy = my + floatY;
+            const currentMz = mz + floatZ;
+
             const projectionFactor = 1 - cz / 50;
             const projectedTargetX = targetX * projectionFactor;
             const projectedTargetY = targetY * projectionFactor;
 
-            const dx = mx - projectedTargetX;
-            const dy = my - projectedTargetY;
+            const dx = currentMx - projectedTargetX;
+            const dy = currentMy - projectedTargetY;
             const dist = Math.sqrt(dx * dx + dy * dy);
 
-            let targetPos = { x: mx, y: my, z: mz * depthFactor };
+            let targetPos = { x: currentMx, y: currentMy, z: currentMz * depthFactor };
 
             if (dist < magnetRadius) {
                 const angle = Math.atan2(dy, dx) + globalRotation;
